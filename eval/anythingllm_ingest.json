@@ -1,0 +1,51 @@
+{
+  "status": "complete",
+  "workspace": "flask-docs",
+  "anythingllm_version": "1.17.0",
+  "base_url": "<ANYTHINGLLM_BASE_URL>",
+  "corpus_fingerprint": "daf339037016ef8a",
+  "expected_content_fingerprint": "b95f15779ffc1737",
+  "generated": "2026-10-05",
+  "chunks": 1093,
+  "already_uploaded_unchanged": 0,
+  "to_upload": 1093,
+  "to_replace": 0,
+  "orphaned": 0,
+  "duplicates": 0,
+  "progress": {
+    "phase": "done",
+    "uploaded": 1093,
+    "embedded_batches": 11,
+    "removed": 0
+  },
+  "upload_failures": 0,
+  "wall_clock_s": 112.0,
+  "duplicate_policy": "ownership = marker naming this workspace; skip unchanged (same key+hash); replace changed only after the new copy is embedded; delete orphaned/duplicate owned docs unless another workspace still embeds them",
+  "embedded_in_workspace": 1093,
+  "not_embedded": 0,
+  "removed_documents": 0,
+  "detached_but_kept_shared": 0,
+  "workspace_content_fingerprint": "b95f15779ffc1737",
+  "workspace_documents": 1093,
+  "workspace_documents_total": 1093,
+  "foreign_documents": 0,
+  "vector_count": 1093,
+  "instance_settings": {
+    "EmbeddingEngine": "ollama",
+    "EmbeddingModelPref": "nomic-embed-text:latest",
+    "EmbeddingModelMaxChunkLength": "8192",
+    "VectorDB": "lancedb",
+    "LLMProvider": "ollama",
+    "LLMModel": "gemma2:9b"
+  },
+  "workspace_settings": {
+    "chatMode": "query",
+    "topN": 5,
+    "similarityThreshold": 0,
+    "vectorSearchMode": "default",
+    "chatProvider": null,
+    "chatModel": null
+  },
+  "not_embedded_chunk_keys": [],
+  "failures": []
+}

@@ -21,6 +21,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ---
-The crawled corpus (Flask documentation) is NOT covered by this license. It is
-Copyright 2010 Pallets and distributed under the BSD-3-Clause license; excerpts
-in site/data.json and eval/ outputs are reproduced under those terms.
+The Flask documentation excerpts in this repository (the demo corpus) are NOT covered
+by this license. See THIRD_PARTY_NOTICES.md for their BSD-3-Clause license and
+copyright notice.

@@ -1,0 +1,4 @@
+# Optional: only for RAG_LLM=claude. The adapter is covered by mocked tests only and has
+# not been exercised against the live API with this (or any) SDK version.
+-r requirements.txt
+anthropic==1.11.0

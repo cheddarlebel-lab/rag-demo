@@ -1,0 +1,1407 @@
+{
+  "questions": 50,
+  "manifest": {
+    "corpus_fingerprint": "daf339037016ef8a",
+    "questions_fingerprint": "b5b69340a6bc9f96",
+    "workspace_settings": {
+      "chatMode": "query",
+      "topN": 5,
+      "similarityThreshold": 0,
+      "vectorSearchMode": "default",
+      "chatProvider": null,
+      "chatModel": null
+    },
+    "workspace_content_fingerprint": "b95f15779ffc1737",
+    "workspace_documents": 1093,
+    "workspace_documents_total": 1093,
+    "foreign_documents": 0,
+    "instance_settings": {
+      "EmbeddingEngine": "ollama",
+      "EmbeddingModelPref": "nomic-embed-text:latest",
+      "EmbeddingModelMaxChunkLength": "8192",
+      "VectorDB": "lancedb",
+      "LLMProvider": "ollama",
+      "LLMModel": "gemma2:9b"
+    },
+    "anythingllm_version": "1.17.0",
+    "workspace": "flask-docs",
+    "route": "POST /api/v1/workspace/{slug}/vector-search",
+    "depth": 10,
+    "ks": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "generated": "2026-10-05"
+  },
+  "anythingllm": {
+    "page": {
+      "hit@1": 0.72,
+      "hit@3": 0.9,
+      "hit@5": 0.96,
+      "hit@10": 0.98,
+      "mrr@10": 0.816
+    },
+    "section": {
+      "hit@1": 0.48,
+      "hit@3": 0.74,
+      "hit@5": 0.78,
+      "hit@10": 0.86,
+      "mrr@10": 0.625
+    }
+  },
+  "anythingllm_avg_query_ms": 195.0,
+  "local_same_depth": {
+    "dense": {
+      "page": {
+        "hit@1": 0.72,
+        "hit@3": 0.82,
+        "hit@5": 0.88,
+        "hit@10": 0.96,
+        "mrr@10": 0.794
+      },
+      "section": {
+        "hit@1": 0.52,
+        "hit@3": 0.66,
+        "hit@5": 0.7,
+        "hit@10": 0.8,
+        "mrr@10": 0.609
+      }
+    },
+    "bm25": {
+      "page": {
+        "hit@1": 0.7,
+        "hit@3": 0.9,
+        "hit@5": 0.94,
+        "hit@10": 0.94,
+        "mrr@10": 0.792
+      },
+      "section": {
+        "hit@1": 0.52,
+        "hit@3": 0.76,
+        "hit@5": 0.84,
+        "hit@10": 0.86,
+        "mrr@10": 0.642
+      }
+    },
+    "hybrid": {
+      "page": {
+        "hit@1": 0.74,
+        "hit@3": 0.92,
+        "hit@5": 0.94,
+        "hit@10": 0.96,
+        "mrr@10": 0.823
+      },
+      "section": {
+        "hit@1": 0.58,
+        "hit@3": 0.74,
+        "hit@5": 0.8,
+        "hit@10": 0.9,
+        "mrr@10": 0.679
+      }
+    }
+  },
+  "per_question": [
+    {
+      "q": "What is the minimum Python version Flask supports?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/installation/#greenlet",
+        "https://flask.palletsprojects.com/en/stable/installation/#python-version",
+        "https://flask.palletsprojects.com/en/stable/changes/#version-1-1-0",
+        "https://flask.palletsprojects.com/en/stable/changes/#version-1-0",
+        "https://flask.palletsprojects.com/en/stable/changes/#version-3-1-0"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 2,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 3
+        },
+        "bm25": {
+          "first_page_rank": 2,
+          "first_section_rank": 2
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "How do I turn on the interactive debugger and auto reloader when running locally?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/debugging/#external-debuggers",
+        "https://flask.palletsprojects.com/en/stable/debugging/#in-production",
+        "https://flask.palletsprojects.com/en/stable/cli/#debug-mode",
+        "https://flask.palletsprojects.com/en/stable/server/#command-line",
+        "https://flask.palletsprojects.com/en/stable/quickstart/#debug-mode"
+      ],
+      "first_page_rank": 3,
+      "first_section_rank": 3,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 4,
+          "first_section_rank": 4
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "How can I capture an integer from the URL path as a view argument?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/tutorial/views/#blueprints-and-views",
+        "https://flask.palletsprojects.com/en/stable/api/#view-function-options",
+        "https://flask.palletsprojects.com/en/stable/views/#url-variables",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Request.view_args",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.views.MethodView"
+      ],
+      "first_page_rank": 2,
+      "first_section_rank": 9,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 3,
+          "first_section_rank": 4
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "Why does a route defined with a trailing slash redirect when I visit it without the slash?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/quickstart/#unique-urls-redirection-behavior",
+        "https://flask.palletsprojects.com/en/stable/api/#url-route-registrations",
+        "https://flask.palletsprojects.com/en/stable/api/#url-route-registrations",
+        "https://flask.palletsprojects.com/en/stable/quickstart/#routing",
+        "https://flask.palletsprojects.com/en/stable/design/#the-routing-system"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 2,
+          "first_section_rank": 2
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 2,
+          "first_section_rank": 2
+        }
+      }
+    },
+    {
+      "q": "How do I generate the URL for a view function instead of hard-coding it?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/tutorial/views/#blueprints-and-views",
+        "https://flask.palletsprojects.com/en/stable/patterns/streaming/#basic-usage",
+        "https://flask.palletsprojects.com/en/stable/views/#basic-reusable-view",
+        "https://flask.palletsprojects.com/en/stable/views/#class-based-views",
+        "https://flask.palletsprojects.com/en/stable/api/#view-function-options"
+      ],
+      "first_page_rank": 5,
+      "first_section_rank": null,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 8,
+          "first_section_rank": null
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 5,
+          "first_section_rank": 5
+        }
+      }
+    },
+    {
+      "q": "How do I make one view accept both GET and POST requests?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/tutorial/views/#blueprints-and-views",
+        "https://flask.palletsprojects.com/en/stable/lifecycle/#how-a-request-is-handled",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Request.view_args",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.views.View.init_every_request",
+        "https://flask.palletsprojects.com/en/stable/async-await/#performance"
+      ],
+      "first_page_rank": 3,
+      "first_section_rank": null,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 6,
+          "first_section_rank": null
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 6
+        },
+        "hybrid": {
+          "first_page_rank": 3,
+          "first_section_rank": null
+        }
+      }
+    },
+    {
+      "q": "How do I read query string parameters like ?key=value?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Request.query_string",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Request.args",
+        "https://flask.palletsprojects.com/en/stable/patterns/sqlite3/#easy-querying",
+        "https://flask.palletsprojects.com/en/stable/testing/#sending-requests-with-the-test-client",
+        "https://flask.palletsprojects.com/en/stable/tutorial/views/#login"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 2,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 4,
+          "first_section_rank": null
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": null
+        },
+        "hybrid": {
+          "first_page_rank": 3,
+          "first_section_rank": null
+        }
+      }
+    },
+    {
+      "q": "How do I parse a JSON body sent by the client?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Request.want_form_data_parsed",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Request.get_data",
+        "https://flask.palletsprojects.com/en/stable/testing/#sending-requests-with-the-test-client",
+        "https://flask.palletsprojects.com/en/stable/tutorial/views/#blueprints-and-views",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Response.direct_passthrough"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": null,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 2,
+          "first_section_rank": 6
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 3,
+          "first_section_rank": 4
+        }
+      }
+    },
+    {
+      "q": "How should I sanitize the filename of an uploaded file before saving it?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/quickstart/#file-uploads",
+        "https://flask.palletsprojects.com/en/stable/patterns/fileuploads/#a-gentle-introduction",
+        "https://flask.palletsprojects.com/en/stable/patterns/fileuploads/#uploading-files",
+        "https://flask.palletsprojects.com/en/stable/quickstart/#file-uploads",
+        "https://flask.palletsprojects.com/en/stable/patterns/fileuploads/#a-gentle-introduction"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "How do I limit the maximum size of an upload so large requests are rejected?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/patterns/fileuploads/#improving-uploads",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Request.max_content_length",
+        "https://flask.palletsprojects.com/en/stable/config/#MAX_CONTENT_LENGTH",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Request.max_form_memory_size",
+        "https://flask.palletsprojects.com/en/stable/web-security/#resource-use"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "If a view returns a dict, what does Flask do with it?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/tutorial/views/#blueprints-and-views",
+        "https://flask.palletsprojects.com/en/stable/views/#class-based-views",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Request.view_args",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.views.MethodView",
+        "https://flask.palletsprojects.com/en/stable/views/#basic-reusable-view"
+      ],
+      "first_page_rank": null,
+      "first_section_rank": null,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": null,
+          "first_section_rank": null
+        },
+        "bm25": {
+          "first_page_rank": null,
+          "first_section_rank": null
+        },
+        "hybrid": {
+          "first_page_rank": null,
+          "first_section_rank": null
+        }
+      }
+    },
+    {
+      "q": "How do I stop the request early and return a 404 error?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/patterns/deferredcallbacks/#deferred-request-callbacks",
+        "https://flask.palletsprojects.com/en/stable/quickstart/#redirects-and-errors",
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#custom-error-pages",
+        "https://flask.palletsprojects.com/en/stable/quickstart/#the-request-object",
+        "https://flask.palletsprojects.com/en/stable/changes/#version-0-11"
+      ],
+      "first_page_rank": 2,
+      "first_section_rank": 2,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "Why do sessions need a secret key, and how do I generate a good one?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/api/#sessions",
+        "https://flask.palletsprojects.com/en/stable/quickstart/#sessions",
+        "https://flask.palletsprojects.com/en/stable/config/#SECRET_KEY",
+        "https://flask.palletsprojects.com/en/stable/config/#SECRET_KEY_FALLBACKS",
+        "https://flask.palletsprojects.com/en/stable/tutorial/deploy/#configure-the-secret-key"
+      ],
+      "first_page_rank": 2,
+      "first_section_rank": 2,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 2,
+          "first_section_rank": 2
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "How can I show a one-time message to the user on the next page?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/patterns/flashing/#message-flashing",
+        "https://flask.palletsprojects.com/en/stable/quickstart/#message-flashing",
+        "https://flask.palletsprojects.com/en/stable/tutorial/views/#blueprints-and-views",
+        "https://flask.palletsprojects.com/en/stable/signals/#signals",
+        "https://flask.palletsprojects.com/en/stable/tutorial/views/#the-first-view-register"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "How do I show flashed messages with different categories like error vs info?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/patterns/flashing/#flashing-with-categories",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.flash",
+        "https://flask.palletsprojects.com/en/stable/patterns/flashing/#message-flashing",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.get_flashed_messages",
+        "https://flask.palletsprojects.com/en/stable/quickstart/#message-flashing"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "How do I register a custom Jinja filter?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/templating/#registering-filters",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Flask.template_filter",
+        "https://flask.palletsprojects.com/en/stable/changes/#version-0-6",
+        "https://flask.palletsprojects.com/en/stable/tutorial/templates/#register-a-user",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Flask.add_template_filter"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 3,
+          "first_section_rank": 3
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "How do I make a variable available in every template automatically?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/templating/#jinja-setup",
+        "https://flask.palletsprojects.com/en/stable/design/#one-template-engine",
+        "https://flask.palletsprojects.com/en/stable/templating/#templates",
+        "https://flask.palletsprojects.com/en/stable/templating/#controlling-autoescaping",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.get_template_attribute"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 9,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": null
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 3
+        }
+      }
+    },
+    {
+      "q": "Which file extensions have autoescaping enabled by default in templates?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/templating/#jinja-setup",
+        "https://flask.palletsprojects.com/en/stable/quickstart/#rendering-templates",
+        "https://flask.palletsprojects.com/en/stable/templating/#controlling-autoescaping",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Flask.select_jinja_autoescape",
+        "https://flask.palletsprojects.com/en/stable/templating/#templates"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 2,
+          "first_section_rank": 2
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "How do I write a pytest fixture that creates a test client?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/testing/#fixtures",
+        "https://flask.palletsprojects.com/en/stable/tutorial/tests/#setup-and-fixtures",
+        "https://flask.palletsprojects.com/en/stable/tutorial/tests/#setup-and-fixtures",
+        "https://flask.palletsprojects.com/en/stable/tutorial/tests/#authentication",
+        "https://flask.palletsprojects.com/en/stable/testing/#testing-flask-applications"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "How can a test follow redirects and check the final page?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/testing/#following-redirects",
+        "https://flask.palletsprojects.com/en/stable/patterns/javascript/#following-redirects",
+        "https://flask.palletsprojects.com/en/stable/tutorial/views/#the-first-view-register",
+        "https://flask.palletsprojects.com/en/stable/quickstart/#redirects-and-errors",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.redirect"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 2,
+          "first_section_rank": 2
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "How do I test a custom CLI command?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/tutorial/tests/#setup-and-fixtures",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Flask.testing",
+        "https://flask.palletsprojects.com/en/stable/shell/#working-with-the-shell",
+        "https://flask.palletsprojects.com/en/stable/testing/#identifying-tests",
+        "https://flask.palletsprojects.com/en/stable/testing/#running-commands-with-the-cli-runner"
+      ],
+      "first_page_rank": 4,
+      "first_section_rank": 5,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 3
+        },
+        "bm25": {
+          "first_page_rank": null,
+          "first_section_rank": null
+        },
+        "hybrid": {
+          "first_page_rank": 2,
+          "first_section_rank": 6
+        }
+      }
+    },
+    {
+      "q": "How do I return API errors as JSON instead of HTML?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/changes/#version-0-12-1",
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#generic-exception-handlers",
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#error-handlers",
+        "https://flask.palletsprojects.com/en/stable/config/#TRAP_HTTP_EXCEPTIONS",
+        "https://flask.palletsprojects.com/en/stable/config/#PROPAGATE_EXCEPTIONS"
+      ],
+      "first_page_rank": 2,
+      "first_section_rank": null,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": null
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 4
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 8
+        }
+      }
+    },
+    {
+      "q": "How do I register a handler for a specific HTTP error code?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#registering",
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#error-handlers",
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#generic-exception-handlers",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Flask.register_error_handler",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Blueprint.register_error_handler"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 3
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 2
+        }
+      }
+    },
+    {
+      "q": "How do I get emailed when an error happens in production?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#handling-application-errors",
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#error-handlers",
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#error-logging-tools",
+        "https://flask.palletsprojects.com/en/stable/logging/#email-errors-to-admins",
+        "https://flask.palletsprojects.com/en/stable/debugging/#in-production"
+      ],
+      "first_page_rank": 4,
+      "first_section_rank": 4,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 6,
+          "first_section_rank": 6
+        },
+        "bm25": {
+          "first_page_rank": null,
+          "first_section_rank": null
+        },
+        "hybrid": {
+          "first_page_rank": null,
+          "first_section_rank": null
+        }
+      }
+    },
+    {
+      "q": "How do I add the request URL and remote address to every log line?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Request.remote_addr",
+        "https://flask.palletsprojects.com/en/stable/logging/#injecting-request-information",
+        "https://flask.palletsprojects.com/en/stable/quickstart/#file-uploads",
+        "https://flask.palletsprojects.com/en/stable/config/#SESSION_COOKIE_SAMESITE",
+        "https://flask.palletsprojects.com/en/stable/patterns/lazyloading/#lazily-loading-views"
+      ],
+      "first_page_rank": 2,
+      "first_section_rank": 2,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": null
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "How do I load configuration values from environment variables with a FLASK_ prefix?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/config/#configuring-from-environment-variables",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Config.from_prefixed_env",
+        "https://flask.palletsprojects.com/en/stable/config/#configuring-from-environment-variables",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Config.from_envvar",
+        "https://flask.palletsprojects.com/en/stable/cli/#setting-command-options"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "How can I load config from a TOML file?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/config/#configuring-from-data-files",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Flask.config",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Config.from_file",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Config",
+        "https://flask.palletsprojects.com/en/stable/config/#configuring-from-python-files"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "What is the instance folder and what is it used for?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/config/#instance-folders",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Flask.instance_path",
+        "https://flask.palletsprojects.com/en/stable/config/#instance-folders",
+        "https://flask.palletsprojects.com/en/stable/config/#instance-folders",
+        "https://flask.palletsprojects.com/en/stable/tutorial/factory/#the-application-factory"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 2,
+          "first_section_rank": 2
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "How do I subscribe to the signal that fires when a template is rendered?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/signals/#decorator-based-signal-subscriptions",
+        "https://flask.palletsprojects.com/en/stable/signals/#subscribing-to-signals",
+        "https://flask.palletsprojects.com/en/stable/signals/#subscribing-to-signals",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.template_rendered",
+        "https://flask.palletsprojects.com/en/stable/api/#signals"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "How do I write a class-based view that dispatches on HTTP method?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/views/#method-dispatching-and-apis",
+        "https://flask.palletsprojects.com/en/stable/views/#class-based-views",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.views.View",
+        "https://flask.palletsprojects.com/en/stable/views/#method-hints",
+        "https://flask.palletsprojects.com/en/stable/views/#basic-reusable-view"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "Where should I store a database connection so it is reused during one request?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/tutorial/database/#connect-to-the-database",
+        "https://flask.palletsprojects.com/en/stable/patterns/sqlite3/#using-sqlite-3-with-flask",
+        "https://flask.palletsprojects.com/en/stable/tutorial/database/#define-and-access-the-database",
+        "https://flask.palletsprojects.com/en/stable/tutorial/database/#connect-to-the-database",
+        "https://flask.palletsprojects.com/en/stable/patterns/sqlite3/#connect-on-demand"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "I get 'Working outside of application context'. How do I fix it?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/appcontext/#manually-push-a-context",
+        "https://flask.palletsprojects.com/en/stable/appcontext/#purpose-of-the-context",
+        "https://flask.palletsprojects.com/en/stable/reqcontext/#manually-push-a-context",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Flask.app_context",
+        "https://flask.palletsprojects.com/en/stable/appcontext/#the-application-context"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 3,
+          "first_section_rank": 3
+        },
+        "hybrid": {
+          "first_page_rank": 2,
+          "first_section_rank": 2
+        }
+      }
+    },
+    {
+      "q": "How do I register a function that runs after every request even if an exception occurred?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/patterns/deferredcallbacks/#deferred-request-callbacks",
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#registering",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Flask.after_request",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Blueprint.after_request",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Request.is_run_once"
+      ],
+      "first_page_rank": 3,
+      "first_section_rank": null,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 6,
+          "first_section_rank": null
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 4
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 8
+        }
+      }
+    },
+    {
+      "q": "How do I mount a blueprint under a URL prefix?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/blueprints/#nesting-blueprints",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Request.blueprint",
+        "https://flask.palletsprojects.com/en/stable/blueprints/#why-blueprints",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.blueprints.BlueprintSetupState.url_prefix",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Flask.blueprints"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": null,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 7
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": null
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": null
+        }
+      }
+    },
+    {
+      "q": "Can blueprints be nested inside other blueprints?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/blueprints/#why-blueprints",
+        "https://flask.palletsprojects.com/en/stable/blueprints/#nesting-blueprints",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Request.blueprints",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Request.blueprint",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Flask.blueprints"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 2,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 6
+        },
+        "bm25": {
+          "first_page_rank": 4,
+          "first_section_rank": null
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 10
+        }
+      }
+    },
+    {
+      "q": "How do I add my own command to the flask command line tool?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/cli/#plugins",
+        "https://flask.palletsprojects.com/en/stable/cli/#custom-commands",
+        "https://flask.palletsprojects.com/en/stable/cli/#command-line-interface",
+        "https://flask.palletsprojects.com/en/stable/server/#command-line",
+        "https://flask.palletsprojects.com/en/stable/cli/#pycharm-integration"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 2,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 2
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 4
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 2
+        }
+      }
+    },
+    {
+      "q": "Does the flask CLI read .env files automatically?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/cli/#command-line-interface",
+        "https://flask.palletsprojects.com/en/stable/cli/#environment-variables-from-dotenv",
+        "https://flask.palletsprojects.com/en/stable/cli/#disable-dotenv",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Flask.run",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.cli.ScriptInfo.load_dotenv_defaults"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 2,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 3,
+          "first_section_rank": 3
+        },
+        "hybrid": {
+          "first_page_rank": 2,
+          "first_section_rank": 2
+        }
+      }
+    },
+    {
+      "q": "What should I do when the dev server says the address is already in use?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/server/#development-server",
+        "https://flask.palletsprojects.com/en/stable/server/#address-already-in-use",
+        "https://flask.palletsprojects.com/en/stable/server/#in-code",
+        "https://flask.palletsprojects.com/en/stable/deploying/#deploying-to-production",
+        "https://flask.palletsprojects.com/en/stable/tutorial/deploy/#run-with-a-production-server"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 2,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 8
+        },
+        "bm25": {
+          "first_page_rank": 3,
+          "first_section_rank": 3
+        },
+        "hybrid": {
+          "first_page_rank": 3,
+          "first_section_rank": 3
+        }
+      }
+    },
+    {
+      "q": "How does Flask protect against cross-site scripting?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/web-security/#cross-site-scripting-xss",
+        "https://flask.palletsprojects.com/en/stable/web-security/#cross-site-request-forgery-csrf",
+        "https://flask.palletsprojects.com/en/stable/web-security/#cross-site-scripting-xss",
+        "https://flask.palletsprojects.com/en/stable/web-security/#x-content-type-options",
+        "https://flask.palletsprojects.com/en/stable/web-security/#x-frame-options"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "Does Flask include CSRF protection out of the box?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/web-security/#security-headers",
+        "https://flask.palletsprojects.com/en/stable/web-security/#x-frame-options",
+        "https://flask.palletsprojects.com/en/stable/web-security/#security-considerations",
+        "https://flask.palletsprojects.com/en/stable/web-security/#http-strict-transport-security-hsts",
+        "https://flask.palletsprojects.com/en/stable/web-security/#set-cookie-options"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 6,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 4,
+          "first_section_rank": null
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 2,
+          "first_section_rank": 2
+        }
+      }
+    },
+    {
+      "q": "How do I set the SameSite and Secure attributes on the session cookie?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/config/#SESSION_COOKIE_DOMAIN",
+        "https://flask.palletsprojects.com/en/stable/config/#SESSION_COOKIE_SAMESITE",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.sessions.SessionInterface.get_cookie_samesite",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.sessions.SessionInterface.get_cookie_domain",
+        "https://flask.palletsprojects.com/en/stable/config/#SESSION_COOKIE_NAME"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 2,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 2
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "Can I write async view functions, and what are the performance trade-offs?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/async-await/#performance",
+        "https://flask.palletsprojects.com/en/stable/design/#async-await-and-asgi-support",
+        "https://flask.palletsprojects.com/en/stable/async-await/#extensions",
+        "https://flask.palletsprojects.com/en/stable/async-await/#when-to-use-quart-instead",
+        "https://flask.palletsprojects.com/en/stable/async-await/#using-async-and-await"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "Why does Flask use an explicit application object instead of a global one?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/tutorial/factory/#application-setup",
+        "https://flask.palletsprojects.com/en/stable/design/#the-explicit-application-object",
+        "https://flask.palletsprojects.com/en/stable/design/#the-explicit-application-object",
+        "https://flask.palletsprojects.com/en/stable/api/#application-globals",
+        "https://flask.palletsprojects.com/en/stable/design/#the-explicit-application-object"
+      ],
+      "first_page_rank": 2,
+      "first_section_rank": 2,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "How do I organize a large app as a Python package instead of a single module?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/patterns/packages/#large-applications-as-packages",
+        "https://flask.palletsprojects.com/en/stable/patterns/packages/#working-with-blueprints",
+        "https://flask.palletsprojects.com/en/stable/lifecycle/#application-structure-and-lifecycle",
+        "https://flask.palletsprojects.com/en/stable/patterns/packages/#simple-packages",
+        "https://flask.palletsprojects.com/en/stable/lifecycle/#application-setup"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 2,
+          "first_section_rank": 2
+        },
+        "bm25": {
+          "first_page_rank": 2,
+          "first_section_rank": 2
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "What is the application factory pattern and how do extensions fit into it?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/patterns/appfactories/#factories-extensions",
+        "https://flask.palletsprojects.com/en/stable/patterns/appfactories/#application-factories",
+        "https://flask.palletsprojects.com/en/stable/extensiondev/#the-extension-class-and-initialization",
+        "https://flask.palletsprojects.com/en/stable/patterns/appfactories/#factory-improvements",
+        "https://flask.palletsprojects.com/en/stable/extensiondev/#flask-extension-development"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 5,
+          "first_section_rank": 5
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "How do I stream a large response to the client chunk by chunk?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/patterns/streaming/#http-response-behavior",
+        "https://flask.palletsprojects.com/en/stable/patterns/streaming/#streaming-contents",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Response.response",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Response.is_streamed",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Response.stream"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 2,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": null
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 2
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 5
+        }
+      }
+    },
+    {
+      "q": "How do I run Celery background tasks with Flask?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/patterns/celery/#background-tasks-with-celery",
+        "https://flask.palletsprojects.com/en/stable/async-await/#background-tasks",
+        "https://flask.palletsprojects.com/en/stable/patterns/celery/#integrate-celery-with-flask",
+        "https://flask.palletsprojects.com/en/stable/patterns/celery/#defining-tasks",
+        "https://flask.palletsprojects.com/en/stable/patterns/celery/#calling-tasks"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "How do I write a login_required decorator?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/tutorial/views/#require-authentication-in-other-views",
+        "https://flask.palletsprojects.com/en/stable/patterns/viewdecorators/#login-required-decorator",
+        "https://flask.palletsprojects.com/en/stable/tutorial/blog/#create",
+        "https://flask.palletsprojects.com/en/stable/patterns/lazyloading/#lazily-loading-views",
+        "https://flask.palletsprojects.com/en/stable/patterns/viewdecorators/#view-decorators"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "How do I run my app with gunicorn and bind it to all interfaces?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/deploying/gunicorn/#binding-externally",
+        "https://flask.palletsprojects.com/en/stable/deploying/gunicorn/#running",
+        "https://flask.palletsprojects.com/en/stable/deploying/gunicorn/#gunicorn",
+        "https://flask.palletsprojects.com/en/stable/deploying/gunicorn/#installing",
+        "https://flask.palletsprojects.com/en/stable/cli/#pycharm-integration"
+      ],
+      "first_page_rank": 1,
+      "first_section_rank": 1,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "bm25": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        },
+        "hybrid": {
+          "first_page_rank": 1,
+          "first_section_rank": 1
+        }
+      }
+    },
+    {
+      "q": "My app is behind nginx and url_for generates http instead of https. How do I fix it?",
+      "top5": [
+        "https://flask.palletsprojects.com/en/stable/deploying/nginx/#nginx",
+        "https://flask.palletsprojects.com/en/stable/deploying/nginx/#configuration",
+        "https://flask.palletsprojects.com/en/stable/deploying/gunicorn/#binding-externally",
+        "https://flask.palletsprojects.com/en/stable/config/#PREFERRED_URL_SCHEME",
+        "https://flask.palletsprojects.com/en/stable/patterns/methodoverrides/#adding-http-method-overrides"
+      ],
+      "first_page_rank": 10,
+      "first_section_rank": 10,
+      "local_same_depth": {
+        "dense": {
+          "first_page_rank": null,
+          "first_section_rank": null
+        },
+        "bm25": {
+          "first_page_rank": 3,
+          "first_section_rank": 3
+        },
+        "hybrid": {
+          "first_page_rank": 9,
+          "first_section_rank": 9
+        }
+      }
+    }
+  ]
+}

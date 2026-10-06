@@ -6,3 +6,6 @@ data/
 .env
 .env.*
 .DS_Store
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/

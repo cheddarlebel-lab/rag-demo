@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Flask Docs RAG Demo</title>
-<meta name="description" content="A measured, end-to-end RAG pipeline over the Flask documentation: polite crawl, structure-aware chunking, local embeddings, hybrid retrieval, cited JSON answers. Precomputed results and eval numbers.">
+<meta name="description" content="A measured, end-to-end RAG pipeline over the Flask documentation: polite crawl, structure-aware chunking, local embeddings, hybrid retrieval, an AnythingLLM workspace integration tested live, and schema-validated cited JSON answers.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
@@ -71,10 +71,13 @@ details{margin-top:8px;border-top:1px solid var(--line);padding-top:8px}
 summary{cursor:pointer;font-size:14px;color:var(--accent)}
 .passage{border-top:1px solid var(--line);padding:12px 0;font-size:13px}
 .passage .hd{display:flex;gap:8px;flex-wrap:wrap;align-items:baseline;margin-bottom:6px}
+.plain{white-space:pre-wrap;word-break:break-word;background:var(--code);border-radius:6px;padding:10px 12px;margin:0;font:13px/1.5 "IBM Plex Mono",ui-monospace,monospace}
 .passage pre,.json pre{white-space:pre-wrap;word-break:break-word;background:var(--code);border-radius:6px;padding:10px 12px;margin:0;font:12.5px/1.5 "IBM Plex Mono",ui-monospace,monospace;max-height:280px;overflow:auto}
 .passage.cited{box-shadow:inset 3px 0 0 var(--accent);padding-left:12px}
 .grid2{display:grid;grid-template-columns:1fr;gap:16px;margin-top:16px}
 @media (min-width:860px){.grid2{grid-template-columns:3fr 2fr}}
+.status{font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:6px;padding:10px 14px;max-width:760px;margin:0 0 20px}
+.h3{font-size:18px;font-weight:600;margin:28px 0 6px}
 .honest{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 20px}
 .honest li{margin:10px 0;font-size:15px}
 footer{margin-top:64px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
@@ -85,24 +88,26 @@ code{font:13px "IBM Plex Mono",ui-monospace,monospace;background:var(--code);pad
 <div class="wrap">
 <header>
   <h1>Crawl → index → retrieve → analyze, measured</h1>
-  <p class="lede">A small, end-to-end retrieval-augmented generation pipeline over the Flask documentation, running entirely on local, free models. Everything on this page was precomputed; no model is called when you load it.</p>
+  <p class="lede">A small, end-to-end retrieval-augmented generation pipeline over the Flask documentation, running entirely on local, free models, with the same corpus also ingested into an AnythingLLM workspace and measured there. Everything on this page was precomputed; no model is called when you load it.</p>
+  <p class="status" id="status"></p>
   <div class="links">
     <a href="https://github.com/cheddarlebel-lab/rag-demo">Source code and README</a>
     <a href="#examples">Example queries</a>
     <a href="#eval">Eval numbers</a>
+    <a href="#anythingllm">AnythingLLM integration</a>
   </div>
   <div class="stats" id="stats"></div>
 </header>
 
 <section>
   <h2>Pipeline</h2>
-  <p class="sub">Each stage is a small Python module with one job, so any of them can be swapped (another vector store, another LLM) without touching the rest.</p>
+  <p class="sub">Each stage is a small Python module with one job. Another LLM backend means one class; another vector store means replacing the index storage and the dense scoring step (see "Extending" in the README).</p>
   <div class="flow">
-    <div class="step"><b>Crawl</b>Reads robots.txt first, honors crawl-delay (≥1 s), stays inside one URL prefix, caches HTML.</div>
-    <div class="step"><b>Chunk</b>Walks the Sphinx section tree; API entries and code blocks stay whole; every chunk keeps a breadcrumb and deep link.</div>
+    <div class="step"><b>Crawl</b>Reads robots.txt first, paces every request (≥1 s, including redirects), validates each URL and redirect hop against one prefix, caches HTML.</div>
+    <div class="step"><b>Chunk</b>Walks the Sphinx section tree; API entries stay separate; code blocks stay whole unless larger than the 1,500-character bound, then they are split with fences re-balanced; every chunk keeps a breadcrumb and deep link.</div>
     <div class="step"><b>Embed</b><code>nomic-embed-text</code> via ollama, with document/query task prefixes.</div>
     <div class="step"><b>Retrieve</b>Dense cosine + BM25, fused with reciprocal-rank fusion (top 5).</div>
-    <div class="step"><b>Analyze</b>Local LLM with a JSON schema; every citation is checked in code against the retrieved passage.</div>
+    <div class="step"><b>Analyze</b>Local LLM, passages delimited as untrusted data; output validated against a JSON schema; every citation is checked in code against the passage it cites.</div>
   </div>
 </section>
 
@@ -124,13 +129,23 @@ code{font:13px "IBM Plex Mono",ui-monospace,monospace;background:var(--code);pad
   <div id="result"></div>
 </section>
 
+<section id="anythingllm">
+  <h2>AnythingLLM integration (tested live)</h2>
+  <p class="sub" id="almsub"></p>
+  <div class="tablewrap"><table id="almtable"></table></div>
+  <p class="note" id="almnote"></p>
+  <h3 class="h3">Example: AnythingLLM sources → this repo's analysis layer</h3>
+  <p class="sub">Output of <code>python -m rag_demo anythingllm ask "…"</code>. AnythingLLM ran the workspace query and returned its sources. Those sources, with their AnythingLLM scores and document ids kept as provenance, were passed to the same validation and citation-checking layer as the local pipeline.</p>
+  <div id="almresult"></div>
+</section>
+
 <section>
   <h2>What this demo is and isn't</h2>
   <ul class="honest" id="honest"></ul>
 </section>
 
 <footer>
-  <p>Corpus: <a href="https://flask.palletsprojects.com/en/stable/">Flask documentation</a>, BSD-3-Clause, Copyright 2010 Pallets. Excerpts are reproduced under that license for demonstration. This project is not affiliated with Pallets.</p>
+  <p>Corpus: <a href="https://flask.palletsprojects.com/en/stable/">Flask documentation</a> (3.1.x, extracted 2026-10-05), Copyright 2010 Pallets, BSD-3-Clause. Excerpts are reproduced under that license. Full license text and notice: <a href="THIRD_PARTY_NOTICES.txt">third-party notices</a>. This project is not affiliated with Pallets. Code: MIT, <a href="https://github.com/cheddarlebel-lab/rag-demo">github.com/cheddarlebel-lab/rag-demo</a>.</p>
   <p id="gen"></p>
 </footer>
 </div>
@@ -153,24 +168,29 @@ function render(d){
     [re.questions, "labelled questions"], [pct(hy.page["hit@5"]), "page hit@5 (hybrid)"],
     [pct(hy.section["hit@5"]), "section hit@5 (hybrid)"],
   ];
-  if (ae) stats.push([pct(ae.quote_verified_rate), "quotes verified verbatim"]);
+  if (ae) stats.push([pct(ae.quote_match_rate), "quotes matched (normalized)"]);
+  const al = d.anythingllm_eval;
+  if (al) stats.push([pct(al.anythingllm.page["hit@5"]), "page hit@5 (AnythingLLM)"]);
+  $("#status").innerHTML = `<b>Status:</b> local pipeline measured. AnythingLLM integration tested live against v${esc(al?.manifest?.anythingllm_version ?? "?")} on ${esc(al?.manifest?.generated ?? "?")}. Claude adapter implemented and covered by mocked tests, not live-tested; no paid API calls were made.`;
   $("#stats").innerHTML = stats.map(([v,l]) => `<div class="stat"><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join("");
 
-  $("#evalsub").textContent = `${re.questions} hand-labelled questions, ${c.chunks} chunks from ${c.pages} pages. Embeddings: ${d.stack.embeddings}. Average dense query time ${re.dense_avg_query_ms_incl_embedding} ms including the query embedding, on a Mac mini (M4 Pro).`;
-  const ks = ["hit@1","hit@3","hit@5","hit@10","mrr"];
+  const mk = `mrr@${d.candidate_depth}`;
+  $("#evalsub").textContent = `${re.questions} hand-labelled questions, ${c.chunks} chunks from ${c.pages} pages. Embeddings: ${d.stack.embeddings}. Each retriever ranks ${d.candidate_depth} candidates; MRR is computed over those (${mk}). Ranking with all three retrievers took ${re.avg_query_ms_all_three_retrievers_incl_embedding} ms per question on average, including the query embedding, on a Mac mini (M4 Pro).`;
+  const ks = ["hit@1","hit@3","hit@5","hit@10",mk];
   const rows = [["Dense (nomic-embed-text)", re.dense_nomic, false], ["BM25 (lexical baseline)", re.bm25_baseline, false], ["Hybrid RRF (used)", re.hybrid_rrf, true]];
   $("#rettable").innerHTML = `<thead><tr><th></th>${ks.map((k,i)=>`<th class="${i==0?'group':''}">Page ${k}</th>`).join("")}${ks.map((k,i)=>`<th class="${i==0?'group':''}">Section ${k}</th>`).join("")}</tr></thead><tbody>` +
-    rows.map(([n,m,best]) => `<tr class="${best?'best':''}"><td>${n}</td>${ks.map((k,i)=>`<td class="${i==0?'group':''}">${k=="mrr"?m.page[k].toFixed(3):pct(m.page[k])}</td>`).join("")}${ks.map((k,i)=>`<td class="${i==0?'group':''}">${k=="mrr"?m.section[k].toFixed(3):pct(m.section[k])}</td>`).join("")}</tr>`).join("") + "</tbody>";
+    rows.map(([n,m,best]) => `<tr class="${best?'best':''}"><td>${n}</td>${ks.map((k,i)=>`<td class="${i==0?'group':''}">${k==mk?m.page[k].toFixed(3):pct(m.page[k])}</td>`).join("")}${ks.map((k,i)=>`<td class="${i==0?'group':''}">${k==mk?m.section[k].toFixed(3):pct(m.section[k])}</td>`).join("")}</tr>`).join("") + "</tbody>";
 
   if (ae){
     const a = [
       ["Answers with at least one valid citation", pct(ae.answered_with_citations)],
       ["Answers whose inline [n] markers all point at retrieved passages", pct(ae.inline_markers_valid)],
-      ["Quoted evidence found verbatim in the cited passage", pct(ae.quote_verified_rate)],
+      [`Model-supplied quotes matched in the cited passage after whitespace/case/backtick normalization (${ae.quotes_given} quotes)`, pct(ae.quote_match_rate)],
       ["Answers citing a labelled target page", pct(ae.cites_labelled_target)],
       ["In-corpus questions wrongly refused", pct(ae.false_abstain_rate)],
       [`Out-of-corpus trap questions refused (${ae.trap_questions})`, pct(ae.trap_abstain_rate)],
       ["Median LLM time per answer (local, " + esc(ae.model) + ")", (ae.median_llm_ms/1000).toFixed(1) + " s"],
+      ["Model outputs rejected (schema, truncation or refusal)", String(ae.output_errors)],
     ];
     $("#anstable").innerHTML = `<thead><tr><th>Metric (n=${ae.questions} + ${ae.trap_questions} traps)</th><th>Result</th></tr></thead><tbody>` + a.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join("") + "</tbody>";
   } else {
@@ -190,36 +210,53 @@ function render(d){
   }
   show(0);
 
+  if (al){
+    const ing = d.anythingllm_ingest, m = al.manifest, L = al.local_same_depth, dk = `mrr@${m.depth}`;
+    const cols = ["hit@1","hit@3","hit@5","hit@10",dk];
+    $("#almsub").textContent = `The same ${c.chunks} chunks were uploaded as raw-text documents to a local AnythingLLM ${m.anythingllm_version} workspace (embedding: nomic-embed-text and LLM: gemma2:9b, both through the same local ollama; no cloud keys). Retrieval was measured through ${m.route} on the same ${al.questions} questions with top ${m.depth}. The local retrievers are re-scored at the same depth so the rows compare like with like.` + (ing ? ` Ingest: ${ing.embedded_in_workspace} documents embedded, ${ing.vector_count} vectors (so AnythingLLM did not re-split the chunks), ${ing.upload_failures} failures, ${ing.wall_clock_s} s for the full ingest (a rerun that found nothing to change took ${d.anythingllm_ingest_rerun_s ?? "under 1"} s).` : "");
+    const rows2 = [["AnythingLLM workspace (vector-search)", al.anythingllm, true], ["Local dense (nomic, with task prefixes)", L.dense, false], ["Local BM25", L.bm25, false], ["Local hybrid RRF", L.hybrid, false]];
+    $("#almtable").innerHTML = `<thead><tr><th></th>${cols.map((k,i)=>`<th class="${i==0?'group':''}">Page ${k}</th>`).join("")}${cols.map((k,i)=>`<th class="${i==0?'group':''}">Section ${k}</th>`).join("")}</tr></thead><tbody>` +
+      rows2.map(([n,mm,best]) => `<tr class="${best?'best':''}"><td>${n}</td>${cols.map((k,i)=>`<td class="${i==0?'group':''}">${k==dk?mm.page[k].toFixed(3):pct(mm.page[k])}</td>`).join("")}${cols.map((k,i)=>`<td class="${i==0?'group':''}">${k==dk?mm.section[k].toFixed(3):pct(mm.section[k])}</td>`).join("")}</tr>`).join("") + "</tbody>";
+    $("#almnote").textContent = `Highlighted row: the AnythingLLM workspace. AnythingLLM average vector-search time: ${al.anythingllm_avg_query_ms} ms per question over HTTP. The local hybrid numbers in this table use ${m.depth} candidates per retriever, not the ${d.candidate_depth} used by the pipeline, which is why they differ slightly from the main table.`;
+    if (d.anythingllm_example){
+      const ex = d.anythingllm_example;
+      $("#almresult").innerHTML = example(ex, "a") + (ex.anythingllm_response?.text_response ? `<div class="card" style="margin-top:16px"><h3>AnythingLLM's own answer (kept for comparison, not used for citations; ${esc(ex.anythingllm_response.model)})</h3><pre class="plain">${esc(ex.anythingllm_response.text_response)}</pre></div>` : "");
+    }
+  } else {
+    $("#almtable").innerHTML = `<tbody><tr><td>Not yet run</td><td></td></tr></tbody>`;
+  }
+
   const honest = [
     `It is a demo on one small corpus (${c.pages} pages). The numbers are what this code measured on ${d.generated}; a different corpus or question set will give different numbers.`,
     `The ${re.questions} eval questions and their target sections were written by hand for this demo. Several topics appear on more than one docs page, so questions may list more than one acceptable target.`,
-    "On this corpus, plain BM25 beat dense embeddings on section-level hits (exact API names such as MAX_CONTENT_LENGTH matter). Fusing both was best, so that is the default.",
-    "Grounding checks are mechanical: a citation must point at a retrieved passage, and its quote must appear in that passage. That catches invented sources. It does not prove the answer is complete or correct.",
-    "Two examples above are deliberate failure cases, left in: for the nginx question the right passage (ProxyFix) was ranked 5th and the model still said it lacked context, and for the CSRF question the right section was not retrieved at all, so the model refused instead of guessing.",
-    "Answers come from a local 9B model, so they are slower and plainer than a frontier model would give. The Claude adapter in the repo is documented but was not called to produce anything here.",
+    "On this corpus, plain BM25 beat dense embeddings on section-level hits, likely because exact API names such as MAX_CONTENT_LENGTH matter. Fusing both gave the best hit@5 and MRR at both the page and section level, so that is the default (BM25 alone still wins page hit@3).",
+    "Grounding checks are mechanical: the output must pass JSON-schema validation, a citation must point at a passage the model was given, and its quote must appear in that passage after whitespace, case and backtick normalization. That catches invented sources. It does not prove the answer is complete or correct.",
+    "Failure cases are left in. For the CSRF question, the right section was not retrieved at all, so the model refused instead of guessing. For the upload-size question, the answer is right, but the model's quote is a paraphrase that occurs in no passage, so it is flagged as not matched.",
+    `Answers come from the local ${ae ? ae.model.replace("ollama/","") : "gemma2:9b"} model${ae ? `; median LLM latency in the ${ae.questions + ae.trap_questions}-question answer run was ${(ae.median_llm_ms/1000).toFixed(1)} seconds` : ""}. The Claude adapter in the repo is implemented and covered by mocked tests, but it was not called to produce anything here: no paid API calls were made.`,
+    "AnythingLLM was run locally in Docker against the same ollama models. Its numbers come from one instance and one configuration (default text splitter, no reranker, no nomic task prefixes).",
   ];
   $("#honest").innerHTML = honest.map(h=>`<li>${esc(h)}</li>`).join("");
   $("#gen").textContent = `Generated ${d.generated}. Stack: ${d.stack.embeddings}, ${d.stack.llm}, ${d.stack.retriever} retrieval, top ${d.stack.top_k}.`;
 }
 
-function example(ex){
+function example(ex, pfx="l"){
   const cited = new Set(ex.citations.filter(c=>c.ref_valid).map(c=>c.ref));
-  const ans = esc(ex.answer).replace(/\[(\d+)\]/g, (m,n)=>`<sup><a href="#p-${n}">[${n}]</a></sup>`);
+  const ans = esc(ex.answer).replace(/\[(\d+)\]/g, (m,n)=>`<sup><a href="#${pfx}-p-${n}">[${n}]</a></sup>`);
   const g = ex.grounding;
   const pills = [
     `<span class="pill">confidence: ${esc(ex.confidence)}</span>`,
     ex.insufficient_context ? `<span class="pill warn">insufficient context: refused to guess</span>` : "",
-    g.citations_total ? `<span class="pill ${g.quotes_verified==g.quotes_given&&g.quotes_given?'ok':'warn'}">${g.quotes_verified}/${g.quotes_given} quotes verified</span>` : "",
-    `<span class="pill">retrieval ${ex.timing_ms.retrieval} ms</span>`,
+    g.citations_total ? `<span class="pill ${g.quotes_verified==g.quotes_given&&g.quotes_given?'ok':'warn'}">${g.quotes_verified}/${g.quotes_given} quotes matched</span>` : "",
+    (ex.timing_ms.anythingllm_chat!=null ? `<span class="pill">AnythingLLM query ${(ex.timing_ms.anythingllm_chat/1000).toFixed(1)} s</span>` : `<span class="pill">retrieval ${ex.timing_ms.retrieval} ms</span>`),
     `<span class="pill">LLM ${(ex.timing_ms.llm/1000).toFixed(1)} s</span>`,
     `<span class="pill">${esc(ex.model)}</span>`,
   ].join("");
   const cites = ex.citations.length ? `<ul class="cites">${ex.citations.map(c=>`<li>
       <b>[${esc(c.ref)}]</b> ${c.link?`<a href="${esc(c.link)}" target="_blank" rel="noopener">${esc(c.breadcrumb)}</a>`:"(invalid reference)"}
-      ${c.quote_verified?'<span class="pill ok">verified</span>':(c.quote?'<span class="pill warn">quote not found verbatim</span>':'<span class="pill warn">no quote given</span>')}
+      ${c.quote_verified?'<span class="pill ok">quote matched</span>':(c.quote?'<span class="pill warn">quote not matched</span>':'<span class="pill warn">no quote given</span>')}
       ${c.quote?`<q>${esc(c.quote)}</q>`:""}</li>`).join("")}</ul>` : `<p class="note">No citations, as expected when the model refuses.</p>`;
-  const passages = ex.passages.map(p=>`<div class="passage ${cited.has(p.rank)?'cited':''}" id="p-${p.rank}">
-      <div class="hd"><b>[${p.rank}]</b><a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.breadcrumb)}</a><span class="pill">${esc(p.kind)}</span><span class="pill">${esc(short(p.link))}</span></div>
+  const passages = ex.passages.map(p=>`<div class="passage ${cited.has(p.rank)?'cited':''}" id="${pfx}-p-${p.rank}">
+      <div class="hd"><b>[${p.rank}]</b><a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.breadcrumb)}</a><span class="pill">${esc(p.kind)}</span>${p.provenance?.score!=null?`<span class="pill">AnythingLLM score ${esc(p.provenance.score)}</span>`:""}<span class="pill">${esc(short(p.link))}</span></div>
       <pre>${esc(p.text)}</pre></div>`).join("");
   const raw = {...ex}; delete raw.passages;
   return `<div class="grid2">
@@ -231,7 +268,7 @@ function example(ex){
     </div>
     <div class="card"><h3>Citations</h3>${cites}</div>
   </div>
-  <div class="card" style="margin-top:16px"><h3>Retrieved passages (top ${ex.passages.length}, ${esc(ex.retriever||"hybrid")})</h3>${passages}</div>`;
+  <div class="card" style="margin-top:16px"><h3>Retrieved passages (top ${ex.passages.length}, ${esc(ex.retriever||"local/hybrid")})</h3>${passages}</div>`;
 }
 </script>
 </body>

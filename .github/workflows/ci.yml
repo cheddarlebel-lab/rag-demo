@@ -1,0 +1,40 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: requirements-dev.lock
+      - name: Install
+        run: pip install --require-hashes -r requirements-dev.lock
+      - name: Lint (ruff)
+        run: ruff check rag_demo tests
+      - name: Type-check (mypy --strict)
+        run: mypy
+      - name: Tests (offline; network access fails the test)
+        run: pytest
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build -t rag-demo .
+      - name: CLI smoke test
+        run: docker run --rm rag-demo --help

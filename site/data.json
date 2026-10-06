@@ -1,21 +1,39 @@
 {
  "generated": "2026-10-05",
+ "manifest": {
+  "rag_demo_version": "0.2.0",
+  "corpus_fingerprint": "daf339037016ef8a",
+  "embed_model": "nomic-embed-text",
+  "retriever": "local/hybrid",
+  "top_k": 5,
+  "candidate_depth": 50,
+  "questions_fingerprint": "b5b69340a6bc9f96",
+  "llm": "ollama/gemma2:9b",
+  "generated": "2026-10-05"
+ },
  "corpus": {
-  "name": "Flask documentation (stable)",
+  "name": "Flask documentation (stable, 3.1.x)",
   "source": "https://flask.palletsprojects.com/en/stable/",
   "license": "BSD-3-Clause, Copyright 2010 Pallets",
+  "notice": "THIRD_PARTY_NOTICES.md",
+  "crawled_at": "2026-10-05",
   "crawl_delay_s": 1.0,
   "skipped_by_robots": 0,
   "embed_model": "nomic-embed-text",
   "dims": 768,
   "chunks": 1093,
   "pages": 74,
-  "chunk_max_chars": 1500
+  "chunk_max_chars": 1500,
+  "longest_chunk_chars": 1498,
+  "chunks_with_unbalanced_fences": 0,
+  "corpus_fingerprint": "daf339037016ef8a",
+  "embeddings_sha256": "c8c56b047d4ee96397844c3f8b550738dcbbf67176c3c9670d1cc0ef885e71a9",
+  "built_at": "2026-10-05"
  },
  "stack": {
   "embeddings": "ollama/nomic-embed-text",
   "llm": "ollama/gemma2:9b",
-  "retriever": "hybrid",
+  "retriever": "local/hybrid",
   "top_k": 5
  },
  "retrieval_eval": {
@@ -26,14 +44,14 @@
     "hit@3": 0.82,
     "hit@5": 0.88,
     "hit@10": 0.96,
-    "mrr": 0.797
+    "mrr@50": 0.797
    },
    "section": {
     "hit@1": 0.52,
     "hit@3": 0.66,
     "hit@5": 0.7,
     "hit@10": 0.8,
-    "mrr": 0.619
+    "mrr@50": 0.619
    }
   },
   "bm25_baseline": {
@@ -42,14 +60,14 @@
     "hit@3": 0.9,
     "hit@5": 0.94,
     "hit@10": 0.94,
-    "mrr": 0.796
+    "mrr@50": 0.796
    },
    "section": {
     "hit@1": 0.52,
     "hit@3": 0.76,
     "hit@5": 0.84,
     "hit@10": 0.86,
-    "mrr": 0.649
+    "mrr@50": 0.649
    }
   },
   "hybrid_rrf": {
@@ -58,49 +76,356 @@
     "hit@3": 0.88,
     "hit@5": 0.96,
     "hit@10": 1.0,
-    "mrr": 0.825
+    "mrr@50": 0.825
    },
    "section": {
     "hit@1": 0.58,
     "hit@3": 0.76,
     "hit@5": 0.9,
     "hit@10": 0.98,
-    "mrr": 0.704
+    "mrr@50": 0.704
    }
   },
-  "dense_avg_query_ms_incl_embedding": 20.3
+  "avg_query_ms_all_three_retrievers_incl_embedding": 20.3
  },
+ "candidate_depth": 50,
  "answer_eval": {
-  "model": "gemma2:9b",
-  "retriever": "hybrid",
+  "manifest": {
+   "rag_demo_version": "0.2.0",
+   "corpus_fingerprint": "daf339037016ef8a",
+   "embed_model": "nomic-embed-text",
+   "retriever": "local/hybrid",
+   "top_k": 5,
+   "candidate_depth": 50,
+   "questions_fingerprint": "b5b69340a6bc9f96",
+   "llm": "ollama/gemma2:9b",
+   "generated": "2026-10-05",
+   "questions_path": "eval/questions.jsonl",
+   "limit": null,
+   "answer_set_fingerprint": "87b4b0d59a34664e"
+  },
+  "model": "ollama/gemma2:9b",
+  "retriever": "local/hybrid",
   "top_k": 5,
   "questions": 50,
   "trap_questions": 5,
-  "answered_with_citations": 0.96,
-  "inline_markers_valid": 0.92,
-  "quote_verified_rate": 0.871,
-  "cites_labelled_target": 0.82,
-  "false_abstain_rate": 0.04,
+  "output_errors": 0,
+  "denominator": "attempted questions; rows with output errors count as failures",
+  "answered_with_citations": 0.98,
+  "inline_markers_valid": 0.94,
+  "quote_match_rate": 0.853,
+  "quotes_given": 75,
+  "cites_labelled_target": 0.8,
+  "false_abstain_rate": 0.02,
   "trap_abstain_rate": 1.0,
-  "median_llm_ms": 12191,
-  "wall_clock_s": 700
+  "median_llm_ms": 12630,
+  "wall_clock_s": 725
+ },
+ "anythingllm_eval": {
+  "questions": 50,
+  "manifest": {
+   "corpus_fingerprint": "daf339037016ef8a",
+   "questions_fingerprint": "b5b69340a6bc9f96",
+   "workspace_settings": {
+    "chatMode": "query",
+    "topN": 5,
+    "similarityThreshold": 0,
+    "vectorSearchMode": "default",
+    "chatProvider": null,
+    "chatModel": null
+   },
+   "workspace_content_fingerprint": "b95f15779ffc1737",
+   "workspace_documents": 1093,
+   "workspace_documents_total": 1093,
+   "foreign_documents": 0,
+   "instance_settings": {
+    "EmbeddingEngine": "ollama",
+    "EmbeddingModelPref": "nomic-embed-text:latest",
+    "EmbeddingModelMaxChunkLength": "8192",
+    "VectorDB": "lancedb",
+    "LLMProvider": "ollama",
+    "LLMModel": "gemma2:9b"
+   },
+   "anythingllm_version": "1.17.0",
+   "workspace": "flask-docs",
+   "route": "POST /api/v1/workspace/{slug}/vector-search",
+   "depth": 10,
+   "ks": [
+    1,
+    3,
+    5,
+    10
+   ],
+   "generated": "2026-10-05"
+  },
+  "anythingllm": {
+   "page": {
+    "hit@1": 0.72,
+    "hit@3": 0.9,
+    "hit@5": 0.96,
+    "hit@10": 0.98,
+    "mrr@10": 0.816
+   },
+   "section": {
+    "hit@1": 0.48,
+    "hit@3": 0.74,
+    "hit@5": 0.78,
+    "hit@10": 0.86,
+    "mrr@10": 0.625
+   }
+  },
+  "anythingllm_avg_query_ms": 195.0,
+  "local_same_depth": {
+   "dense": {
+    "page": {
+     "hit@1": 0.72,
+     "hit@3": 0.82,
+     "hit@5": 0.88,
+     "hit@10": 0.96,
+     "mrr@10": 0.794
+    },
+    "section": {
+     "hit@1": 0.52,
+     "hit@3": 0.66,
+     "hit@5": 0.7,
+     "hit@10": 0.8,
+     "mrr@10": 0.609
+    }
+   },
+   "bm25": {
+    "page": {
+     "hit@1": 0.7,
+     "hit@3": 0.9,
+     "hit@5": 0.94,
+     "hit@10": 0.94,
+     "mrr@10": 0.792
+    },
+    "section": {
+     "hit@1": 0.52,
+     "hit@3": 0.76,
+     "hit@5": 0.84,
+     "hit@10": 0.86,
+     "mrr@10": 0.642
+    }
+   },
+   "hybrid": {
+    "page": {
+     "hit@1": 0.74,
+     "hit@3": 0.92,
+     "hit@5": 0.94,
+     "hit@10": 0.96,
+     "mrr@10": 0.823
+    },
+    "section": {
+     "hit@1": 0.58,
+     "hit@3": 0.74,
+     "hit@5": 0.8,
+     "hit@10": 0.9,
+     "mrr@10": 0.679
+    }
+   }
+  }
+ },
+ "anythingllm_ingest": {
+  "status": "complete",
+  "workspace": "flask-docs",
+  "anythingllm_version": "1.17.0",
+  "base_url": "<ANYTHINGLLM_BASE_URL>",
+  "corpus_fingerprint": "daf339037016ef8a",
+  "expected_content_fingerprint": "b95f15779ffc1737",
+  "generated": "2026-10-05",
+  "chunks": 1093,
+  "already_uploaded_unchanged": 0,
+  "to_upload": 1093,
+  "to_replace": 0,
+  "orphaned": 0,
+  "duplicates": 0,
+  "progress": {
+   "phase": "done",
+   "uploaded": 1093,
+   "embedded_batches": 11,
+   "removed": 0
+  },
+  "upload_failures": 0,
+  "wall_clock_s": 112.0,
+  "duplicate_policy": "ownership = marker naming this workspace; skip unchanged (same key+hash); replace changed only after the new copy is embedded; delete orphaned/duplicate owned docs unless another workspace still embeds them",
+  "embedded_in_workspace": 1093,
+  "not_embedded": 0,
+  "removed_documents": 0,
+  "detached_but_kept_shared": 0,
+  "workspace_content_fingerprint": "b95f15779ffc1737",
+  "workspace_documents": 1093,
+  "workspace_documents_total": 1093,
+  "foreign_documents": 0,
+  "vector_count": 1093,
+  "instance_settings": {
+   "EmbeddingEngine": "ollama",
+   "EmbeddingModelPref": "nomic-embed-text:latest",
+   "EmbeddingModelMaxChunkLength": "8192",
+   "VectorDB": "lancedb",
+   "LLMProvider": "ollama",
+   "LLMModel": "gemma2:9b"
+  },
+  "workspace_settings": {
+   "chatMode": "query",
+   "topN": 5,
+   "similarityThreshold": 0,
+   "vectorSearchMode": "default",
+   "chatProvider": null,
+   "chatModel": null
+  },
+  "not_embedded_chunk_keys": []
+ },
+ "anythingllm_ingest_rerun_s": 0.3,
+ "anythingllm_example": {
+  "question": "How do I limit the maximum size of an upload so large requests are rejected?",
+  "answer": "You can limit the maximum allowed payload by setting the `MAX_CONTENT_LENGTH` config key.  [1] The code example provided sets the limit to 16 megabytes. [1]",
+  "key_points": [],
+  "citations": [
+   {
+    "ref": 1,
+    "link": "https://flask.palletsprojects.com/en/stable/patterns/fileuploads/#improving-uploads",
+    "breadcrumb": "Uploading Files > Improving Uploads",
+    "quote": "But how do you specify the maximum file size after which an upload is aborted? By default Flask will happily accept file uploads with an unlimited amount of memory, but you can limit that by setting the MAX_CONTENT_LENGTH config key:",
+    "ref_valid": true,
+    "quote_verified": true
+   }
+  ],
+  "confidence": "high",
+  "insufficient_context": false,
+  "grounding": {
+   "citations_total": 1,
+   "citations_ref_valid": 1,
+   "quotes_given": 1,
+   "quotes_verified": 1,
+   "answer_markers": [
+    1
+   ],
+   "answer_has_markers": true,
+   "markers_valid": true
+  },
+  "model": "ollama/gemma2:9b",
+  "retriever": "anythingllm/flask-docs",
+  "timing_ms": {
+   "anythingllm_chat": 18397.7,
+   "llm": 14214
+  },
+  "passages": [
+   {
+    "rank": 1,
+    "link": "https://flask.palletsprojects.com/en/stable/patterns/fileuploads/#improving-uploads",
+    "breadcrumb": "Uploading Files > Improving Uploads",
+    "kind": "anythingllm",
+    "text": "Changelog \n Added in version 0.6.\n\nSo how exactly does Flask handle uploads? Well it will store them in the\nwebserver’s memory if the files are reasonably small, otherwise in a\ntemporary location (as returned by tempfile.gettempdir() ). But how\ndo you specify the maximum file size after which an upload is aborted? By\ndefault Flask will happily accept file uploads with an unlimited amount of\nmemory, but you can limit that by setting the MAX_CONTENT_LENGTH \nconfig key:\n\n```\nfrom flask import Flask, Request\n\napp = Flask(__name__)\napp.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000\n```\n\nThe code above will limit the maximum allowed payload to 16 megabytes.\nIf a larger file is transmitted, Flask will raise a\n RequestEntityTooLarge exception.\n\nConnection Reset Issue \n When using the local development server, you may get a connection\nreset error instead of a 413 response. You will get the correct\nstatus response when running the app with a production WSGI server.\n\nThis feature was added in Flask 0.6 but can be achieved in older versions\nas well by subclassing the request object. For more information on that\nconsult the Werkzeug documentation on file handling.",
+    "provenance": {
+     "retriever": "anythingllm",
+     "anythingllm_doc_id": "84631573-6582-43c6-8e1f-8cfc78322783",
+     "score": 0.8034,
+     "chunk_id": "https://flask.palletsprojects.com/en/stable/patterns/fileuploads/#improving-uploads::4"
+    }
+   },
+   {
+    "rank": 2,
+    "link": "https://flask.palletsprojects.com/en/stable/api/#flask.Request.max_content_length",
+    "breadcrumb": "API > Incoming Request Data > Request > max_content_length",
+    "kind": "anythingllm",
+    "text": "property max_content_length : int | None\n\nThe maximum number of bytes that will be read during this request. If\nthis limit is exceeded, a 413 RequestEntityTooLarge \nerror is raised. If it is set to None , no limit is enforced at the\nFlask application level. However, if it is None and the request has\nno Content-Length header and the WSGI server does not indicate that\nit terminates the stream, then no data is read to avoid an infinite\nstream.\n\nEach request defaults to the MAX_CONTENT_LENGTH config, which\ndefaults to None . It can be set on a specific request to apply\nthe limit to that specific view. This should be set appropriately based\non an application’s or view’s specific needs.\n\nChanged in version 3.1: This can be set per-request.\n\nChangelog \n Changed in version 0.6: This is configurable through Flask config.",
+    "provenance": {
+     "retriever": "anythingllm",
+     "anythingllm_doc_id": "28d3761e-431c-4bcf-8172-e013cf9bb238",
+     "score": 0.7614,
+     "chunk_id": "https://flask.palletsprojects.com/en/stable/api/#flask.Request.max_content_length::181"
+    }
+   },
+   {
+    "rank": 3,
+    "link": "https://flask.palletsprojects.com/en/stable/config/#MAX_CONTENT_LENGTH",
+    "breadcrumb": "Configuration Handling > Builtin Configuration Values > MAX_CONTENT_LENGTH",
+    "kind": "anythingllm",
+    "text": "MAX_CONTENT_LENGTH\n\nThe maximum number of bytes that will be read during this request. If\nthis limit is exceeded, a 413 RequestEntityTooLarge \nerror is raised. If it is set to None , no limit is enforced at the\nFlask application level. However, if it is None and the request has no\n Content-Length header and the WSGI server does not indicate that it\nterminates the stream, then no data is read to avoid an infinite stream.\n\nEach request defaults to this config. It can be set on a specific\n Request.max_content_length to apply the limit to that specific\nview. This should be set appropriately based on an application’s or view’s\nspecific needs.\n\nDefault: None\n\nChangelog \n Added in version 0.6.",
+    "provenance": {
+     "retriever": "anythingllm",
+     "anythingllm_doc_id": "cff2d279-d011-4d5c-8e2e-eadae0d57337",
+     "score": 0.7376,
+     "chunk_id": "https://flask.palletsprojects.com/en/stable/config/#MAX_CONTENT_LENGTH::27"
+    }
+   },
+   {
+    "rank": 4,
+    "link": "https://flask.palletsprojects.com/en/stable/api/#flask.Request.max_form_memory_size",
+    "breadcrumb": "API > Incoming Request Data > Request > max_form_memory_size",
+    "kind": "anythingllm",
+    "text": "property max_form_memory_size : int | None\n\nThe maximum size in bytes any non-file form field may be in a\n multipart/form-data body. If this limit is exceeded, a 413\n RequestEntityTooLarge error is raised. If it\nis set to None , no limit is enforced at the Flask application level.\n\nEach request defaults to the MAX_FORM_MEMORY_SIZE config, which\ndefaults to 500_000 . It can be set on a specific request to\napply the limit to that specific view. This should be set appropriately\nbased on an application’s or view’s specific needs.\n\nChanged in version 3.1: This is configurable through Flask config.",
+    "provenance": {
+     "retriever": "anythingllm",
+     "anythingllm_doc_id": "566bf1ff-7ed0-45ce-9e23-4ae07fc816a2",
+     "score": 0.7362,
+     "chunk_id": "https://flask.palletsprojects.com/en/stable/api/#flask.Request.max_form_memory_size::182"
+    }
+   },
+   {
+    "rank": 5,
+    "link": "https://flask.palletsprojects.com/en/stable/web-security/#resource-use",
+    "breadcrumb": "Security Considerations > Resource Use",
+    "kind": "anythingllm",
+    "text": "A common category of attacks is “Denial of Service” (DoS or DDoS). This is a\nvery broad category, and different variants target different layers in a\ndeployed application. In general, something is done to increase how much\nprocessing time or memory is used to handle each request, to the point where\nthere are not enough resources to handle legitimate requests.\n\nFlask provides a few configuration options to handle resource use. They can\nalso be set on individual requests to customize only that request. The\ndocumentation for each goes into more detail.\n\n- MAX_CONTENT_LENGTH or Request.max_content_length controls\nhow much data will be read from a request. It is not set by default,\nalthough it will still block truly unlimited streams unless the WSGI server\nindicates support.\n- MAX_FORM_MEMORY_SIZE or Request.max_form_memory_size \ncontrols how large any non-file multipart/form-data field can be. It is\nset to 500kB by default.\n- MAX_FORM_PARTS or Request.max_form_parts controls how many\n multipart/form-data fields can be parsed. It is set to 1000 by default.\nCombined with the default max_form_memory_size , this means that a form\nwill occupy at most 500MB of memory.\n\nRegardless of these settings, you should also review what settings are available\nfrom your operating system, container deployment (Docker etc), WSGI server, HTTP\nserver, and hosting platform. They typically have ways to set process resource\nlimits, timeouts, and other checks regardless of how Flask is configured.",
+    "provenance": {
+     "retriever": "anythingllm",
+     "anythingllm_doc_id": "e9fcb999-a77f-435d-8c4c-1eaeed3a6487",
+     "score": 0.7081,
+     "chunk_id": "https://flask.palletsprojects.com/en/stable/web-security/#resource-use::1"
+    }
+   }
+  ],
+  "anythingllm_response": {
+   "text_response": "You can limit the maximum allowed payload size by setting the `MAX_CONTENT_LENGTH` config key in your Flask application.  \n\nHere's an example:\n\n```python\nfrom flask import Flask, Request\n\napp = Flask(__name__)\napp.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000  # Limit to 16MB\n```\n\n\nIf a larger file is transmitted, Flask will raise a `RequestEntityTooLarge` exception.",
+   "model": "gemma2:9b",
+   "note": "AnythingLLM's own answer, kept for comparison; not used for citations"
+  },
+  "manifest": {
+   "corpus_fingerprint": "daf339037016ef8a",
+   "workspace": "flask-docs",
+   "anythingllm_version": "1.17.0",
+   "workspace_content_fingerprint": "b95f15779ffc1737",
+   "workspace_documents": 1093,
+   "workspace_documents_total": 1093,
+   "foreign_documents": 0,
+   "workspace_settings": {
+    "chatMode": "query",
+    "topN": 5,
+    "similarityThreshold": 0,
+    "vectorSearchMode": "default",
+    "chatProvider": null,
+    "chatModel": null
+   },
+   "instance_settings": {
+    "EmbeddingEngine": "ollama",
+    "EmbeddingModelPref": "nomic-embed-text:latest",
+    "EmbeddingModelMaxChunkLength": "8192",
+    "VectorDB": "lancedb",
+    "LLMProvider": "ollama",
+    "LLMModel": "gemma2:9b"
+   },
+   "analysis_llm": "ollama/gemma2:9b",
+   "generated": "2026-10-05"
+  }
  },
  "examples": [
   {
    "question": "How do I limit the maximum size of an upload so large requests are rejected?",
-   "answer": "You can limit the maximum allowed payload by setting the `MAX_CONTENT_LENGTH` config key [1].  The code example provided sets the limit to 16 megabytes. [1]",
+   "answer": "You can limit the maximum allowed payload to a specific size in bytes by setting the `MAX_CONTENT_LENGTH` config key. [1] ",
    "key_points": [
-    "MAX_CONTENT_LENGTH",
-    "RequestEntityTooLarge exception"
+    "The code above will limit the maximum allowed payload to 16 megabytes.",
+    "If a larger file is transmitted, Flask will raise a RequestEntityTooLarge exception."
    ],
    "citations": [
     {
      "ref": 1,
      "link": "https://flask.palletsprojects.com/en/stable/patterns/fileuploads/#improving-uploads",
      "breadcrumb": "Uploading Files > Improving Uploads",
-     "quote": "But you can limit that by setting the MAX_CONTENT_LENGTH config key:",
+     "quote": "You can limit the maximum allowed payload to a specific size in bytes by setting the `MAX_CONTENT_LENGTH` config key:",
      "ref_valid": true,
-     "quote_verified": true
+     "quote_verified": false
     }
    ],
    "confidence": "high",
@@ -109,7 +434,7 @@
     "citations_total": 1,
     "citations_ref_valid": 1,
     "quotes_given": 1,
-    "quotes_verified": 1,
+    "quotes_verified": 0,
     "answer_markers": [
      1
     ],
@@ -117,10 +442,10 @@
     "markers_valid": true
    },
    "model": "ollama/gemma2:9b",
-   "retriever": "hybrid",
+   "retriever": "local/hybrid",
    "timing_ms": {
-    "retrieval": 90.7,
-    "llm": 10502
+    "retrieval": 98.9,
+    "llm": 12401
    },
    "passages": [
     {
@@ -162,25 +487,68 @@
   },
   {
    "question": "My app is behind nginx and url_for generates http instead of https. How do I fix it?",
-   "answer": "The passages provided do not contain the answer to your question.",
+   "answer": "You should configure your Flask application to trust the X-Forwarded-Proto header set by Nginx [5].",
    "key_points": [],
-   "citations": [],
-   "confidence": "low",
-   "insufficient_context": true,
+   "citations": [
+    {
+     "ref": 1,
+     "link": "https://flask.palletsprojects.com/en/stable/deploying/nginx/#configuration",
+     "breadcrumb": "nginx > Configuration",
+     "quote": "When using a reverse proxy, or many Python hosting platforms, the proxy will intercept and forward all external requests to the local WSGI server.",
+     "ref_valid": true,
+     "quote_verified": false
+    },
+    {
+     "ref": 2,
+     "link": "https://flask.palletsprojects.com/en/stable/deploying/nginx/#nginx",
+     "breadcrumb": "nginx",
+     "quote": "nginx is a fast, production level HTTP server. When serving your application with one of the WSGI servers listed in Deploying to Production , it is often good or necessary to put a dedicated HTTP server in front of it.",
+     "ref_valid": true,
+     "quote_verified": true
+    },
+    {
+     "ref": 3,
+     "link": "https://flask.palletsprojects.com/en/stable/deploying/uwsgi/#binding-externally",
+     "breadcrumb": "uWSGI > Binding Externally",
+     "quote": "uWSGI should not be run as root with the configuration shown in this doc because it would cause your application code to run as root, which is not secure. However, this means it will not be possible to bind to port 80 or 443.",
+     "ref_valid": true,
+     "quote_verified": true
+    },
+    {
+     "ref": 4,
+     "link": "https://flask.palletsprojects.com/en/stable/deploying/gunicorn/#binding-externally",
+     "breadcrumb": "Gunicorn > Binding Externally",
+     "quote": "Gunicorn should not be run as root because it would cause your application code to run as root, which is not secure. However, this means it will not be possible to bind to port 80 or 443.",
+     "ref_valid": true,
+     "quote_verified": true
+    },
+    {
+     "ref": 5,
+     "link": "https://flask.palletsprojects.com/en/stable/deploying/proxy_fix/#tell-flask-it-is-behind-a-proxy",
+     "breadcrumb": "Tell Flask it is Behind a Proxy",
+     "quote": "From the WSGI server and Flask application’s perspectives, requests are now coming from the HTTP server to the local address, rather than from the remote address to the external server address.",
+     "ref_valid": true,
+     "quote_verified": true
+    }
+   ],
+   "confidence": "medium",
+   "insufficient_context": false,
    "grounding": {
-    "citations_total": 0,
-    "citations_ref_valid": 0,
-    "quotes_given": 0,
-    "quotes_verified": 0,
-    "answer_markers": [],
-    "answer_has_markers": false,
-    "markers_valid": false
+    "citations_total": 5,
+    "citations_ref_valid": 5,
+    "quotes_given": 5,
+    "quotes_verified": 4,
+    "answer_markers": [
+     5
+    ],
+    "answer_has_markers": true,
+    "markers_valid": true
    },
    "model": "ollama/gemma2:9b",
-   "retriever": "hybrid",
+   "retriever": "local/hybrid",
    "timing_ms": {
-    "retrieval": 85.9,
-    "llm": 8306
+    "retrieval": 54.8,
+    "llm": 24760
    },
    "passages": [
     {
@@ -222,27 +590,42 @@
   },
   {
    "question": "How do I return API errors as JSON instead of HTML?",
-   "answer": "You can return JSON responses to API errors by using the `jsonify()` function and the `abort()` function with a description parameter [4].",
-   "key_points": [
-    "The error handler will use that as the JSON error message, and set the status code to 404. [4]"
-   ],
+   "answer": "Use the `jsonify()` function to return a JSON response to API errors. [4] You can also use the `abort()` function with a description parameter, which will set the status code to 404 and return a JSON error message. [4]",
+   "key_points": [],
    "citations": [
+    {
+     "ref": 1,
+     "link": "https://flask.palletsprojects.com/en/stable/errorhandling/#generic-exception-handlers",
+     "breadcrumb": "Handling Application Errors > Error Handlers > Generic Exception Handlers",
+     "quote": "Using the same techniques as above and jsonify() we can return JSON responses to API errors.",
+     "ref_valid": true,
+     "quote_verified": false
+    },
+    {
+     "ref": 2,
+     "link": "https://flask.palletsprojects.com/en/stable/patterns/javascript/#replacing-content",
+     "breadcrumb": "JavaScript, fetch, and JSON > JavaScript, fetch , and JSON > Replacing Content",
+     "quote": "When building APIs in Flask, some developers realise that the built-in exceptions are not expressive enough for APIs and that the content type of text/html they are emitting is not very useful for API consumers.",
+     "ref_valid": true,
+     "quote_verified": false
+    },
     {
      "ref": 4,
      "link": "https://flask.palletsprojects.com/en/stable/errorhandling/#returning-api-errors-as-json",
      "breadcrumb": "Handling Application Errors > Returning API Errors as JSON",
-     "quote": "Using the same techniques as above and jsonify() we can return JSON responses to API errors.",
+     "quote": "",
      "ref_valid": true,
-     "quote_verified": true
+     "quote_verified": false,
+     "from_inline_marker": true
     }
    ],
    "confidence": "high",
    "insufficient_context": false,
    "grounding": {
-    "citations_total": 1,
-    "citations_ref_valid": 1,
-    "quotes_given": 1,
-    "quotes_verified": 1,
+    "citations_total": 3,
+    "citations_ref_valid": 3,
+    "quotes_given": 2,
+    "quotes_verified": 0,
     "answer_markers": [
      4
     ],
@@ -250,10 +633,10 @@
     "markers_valid": true
    },
    "model": "ollama/gemma2:9b",
-   "retriever": "hybrid",
+   "retriever": "local/hybrid",
    "timing_ms": {
-    "retrieval": 47.7,
-    "llm": 10233
+    "retrieval": 37.2,
+    "llm": 14016
    },
    "passages": [
     {
@@ -295,19 +678,14 @@
   },
   {
    "question": "Where should I store a database connection so it is reused during one request?",
-   "answer": "You should store a database connection in `g` [1][3][4][5].",
-   "key_points": [
-    "The g object is unique for each request and used to store data that might be accessed by multiple functions during the request. [1]",
-    "It is created at some point when handling a request, and closed before the response is sent. [1]",
-    "g is a special object that is unique for each request. It is used to store data that might be accessed by multiple functions during the request. The connection is stored and reused instead of creating a new connection if get_db is called a second time in the same request. [1]",
-    "The tutorial stores a connection to a SQLite database as g.db . Extensions can also use this, with some care. [4]"
-   ],
+   "answer": "You should store a database connection in `g` [1][3].  It is used to store data that might be accessed by multiple functions during the request. The connection is stored and reused instead of creating a new connection if get_db is called a second time in the same request. [1]",
+   "key_points": [],
    "citations": [
     {
      "ref": 1,
      "link": "https://flask.palletsprojects.com/en/stable/tutorial/database/#connect-to-the-database",
      "breadcrumb": "Define and Access the Database > Connect to the Database",
-     "quote": "In web applications this connection is typically tied to the request. It is created at some point when handling a request, and closed before the response is sent.",
+     "quote": "The connection is stored and reused instead of creating a new connection if get_db is called a second time in the same request.",
      "ref_valid": true,
      "quote_verified": true
     },
@@ -315,23 +693,7 @@
      "ref": 3,
      "link": "https://flask.palletsprojects.com/en/stable/tutorial/database/#connect-to-the-database",
      "breadcrumb": "Define and Access the Database > Connect to the Database",
-     "quote": "g is a special object that is unique for each request. It is used to store data that might be accessed by multiple functions during the request. The connection is stored and reused instead of creating a new connection if get_db is called a second time in the same request.",
-     "ref_valid": true,
-     "quote_verified": false
-    },
-    {
-     "ref": 4,
-     "link": "https://flask.palletsprojects.com/en/stable/extensiondev/#data-during-a-request",
-     "breadcrumb": "Flask Extension Development > Data During a Request",
-     "quote": "g is a special object that is unique for each request. It is used to store data that might be accessed by multiple functions during the request. The connection is stored and reused instead of creating a new connection if get_db is called a second time in the same request.",
-     "ref_valid": true,
-     "quote_verified": false
-    },
-    {
-     "ref": 5,
-     "link": "https://flask.palletsprojects.com/en/stable/patterns/sqlite3/#using-sqlite-3-with-flask",
-     "breadcrumb": "Using SQLite 3 with Flask",
-     "quote": "The tutorial stores a connection to a SQLite database as g.db . Extensions can also use this, with some care.",
+     "quote": "g is a special object that is unique for each request. It is used to store data that might be accessed by multiple functions during the request.",
      "ref_valid": true,
      "quote_verified": false
     }
@@ -339,24 +701,22 @@
    "confidence": "high",
    "insufficient_context": false,
    "grounding": {
-    "citations_total": 4,
-    "citations_ref_valid": 4,
-    "quotes_given": 4,
+    "citations_total": 2,
+    "citations_ref_valid": 2,
+    "quotes_given": 2,
     "quotes_verified": 1,
     "answer_markers": [
      1,
-     3,
-     4,
-     5
+     3
     ],
     "answer_has_markers": true,
     "markers_valid": true
    },
    "model": "ollama/gemma2:9b",
-   "retriever": "hybrid",
+   "retriever": "local/hybrid",
    "timing_ms": {
-    "retrieval": 36.3,
-    "llm": 25382
+    "retrieval": 58.5,
+    "llm": 15194
    },
    "passages": [
     {
@@ -413,10 +773,10 @@
     "markers_valid": false
    },
    "model": "ollama/gemma2:9b",
-   "retriever": "hybrid",
+   "retriever": "local/hybrid",
    "timing_ms": {
-    "retrieval": 34.3,
-    "llm": 5543
+    "retrieval": 76.7,
+    "llm": 6471
    },
    "passages": [
     {
@@ -458,17 +818,25 @@
   },
   {
    "question": "How do I load configuration values from environment variables with a FLASK_ prefix?",
-   "answer": "Use the `from_prefixed_env()` function to load configuration values from environment variables starting with FLASK_. [2]  The default prefix is 'FLASK_' and can be changed using the `prefix` argument. [2]",
+   "answer": "Use the `app.config.from_prefixed_env()` function to load configuration values from environment variables starting with FLASK_. [2] ",
    "key_points": [
-    "You can use the `from_prefixed_env()` function to load configuration values from environment variables.",
-    "The default prefix for this function is 'FLASK_' but you can change it with the `prefix` argument."
+    "The default prefix is FLASK_, but this can be changed via the `prefix` argument of `from_prefixed_env()`. [2]",
+    "Values are parsed as JSON by default. [2]"
    ],
    "citations": [
+    {
+     "ref": 1,
+     "link": "https://flask.palletsprojects.com/en/stable/config/#configuring-from-environment-variables",
+     "breadcrumb": "Configuration Handling > Configuring from Environment Variables",
+     "quote": "The variables can then be loaded and accessed via the config with a key equal to the environment variable name without the prefix i.e.",
+     "ref_valid": true,
+     "quote_verified": true
+    },
     {
      "ref": 2,
      "link": "https://flask.palletsprojects.com/en/stable/api/#flask.Config.from_prefixed_env",
      "breadcrumb": "API > Configuration > Config > from_prefixed_env",
-     "quote": "Load any environment variables that start with FLASK_ , dropping the prefix from the env key for the config key. Values are passed through a loading function to attempt to convert them to more specific types than strings.",
+     "quote": "from_prefixed_env ( prefix = 'FLASK' , * , loads = json.loads ) Load any environment variables that start with FLASK_ , dropping the prefix from the env key for the config key.",
      "ref_valid": true,
      "quote_verified": true
     }
@@ -476,10 +844,10 @@
    "confidence": "high",
    "insufficient_context": false,
    "grounding": {
-    "citations_total": 1,
-    "citations_ref_valid": 1,
-    "quotes_given": 1,
-    "quotes_verified": 1,
+    "citations_total": 2,
+    "citations_ref_valid": 2,
+    "quotes_given": 2,
+    "quotes_verified": 2,
     "answer_markers": [
      2
     ],
@@ -487,10 +855,10 @@
     "markers_valid": true
    },
    "model": "ollama/gemma2:9b",
-   "retriever": "hybrid",
+   "retriever": "local/hybrid",
    "timing_ms": {
-    "retrieval": 21.5,
-    "llm": 14633
+    "retrieval": 28.1,
+    "llm": 17802
    },
    "passages": [
     {
@@ -532,16 +900,24 @@
   },
   {
    "question": "How do I run Celery background tasks with Flask?",
-   "answer": "You can use Celery to run background tasks in Flask by configuring it through Flask's config and letting tasks access the Flask application [3].  Celery uses a similar structure to Flask, with a Celery app object that has configuration and registers tasks. You can configure Celery using the `CELERY` key in your Flask configuration [3] .",
+   "answer": "You can use the `@shared_task` decorator from Celery to define background tasks that will be executed by a Celery worker. [5]  Celery configuration is taken from the CELERY key in the Flask configuration. [3]",
    "key_points": [
-    "You can use Celery to run background tasks in Flask by configuring it through Flask's config and letting tasks access the Flask application [3].  Celery uses a similar structure to Flask, with a Celery app object that has configuration and registers tasks. You can configure Celery using the `CELERY` key in your Flask configuration [3] ."
+    "The decorated function becomes a task object with methods to call it in the background. [4]"
    ],
    "citations": [
     {
-     "ref": 3,
-     "link": "https://flask.palletsprojects.com/en/stable/patterns/celery/#integrate-celery-with-flask",
-     "breadcrumb": "Background Tasks with Celery > Integrate Celery with Flask",
-     "quote": "Celery uses similar ideas to Flask, with a Celery app object that has configuration and registers tasks. While creating a Flask app, use the following code to create and configure a Celery app as well.",
+     "ref": 1,
+     "link": "https://flask.palletsprojects.com/en/stable/patterns/celery/#background-tasks-with-celery",
+     "breadcrumb": "Background Tasks with Celery",
+     "quote": "Celery is a powerful task queue that can be used for simple background tasks as well as complex multi-stage programs and schedules.",
+     "ref_valid": true,
+     "quote_verified": true
+    },
+    {
+     "ref": 2,
+     "link": "https://flask.palletsprojects.com/en/stable/async-await/#background-tasks",
+     "breadcrumb": "Using async and await > Background tasks",
+     "quote": "If you wish to use background tasks it is best to use a task queue to trigger background work, rather than spawn tasks in a view function.",
      "ref_valid": true,
      "quote_verified": true
     },
@@ -549,7 +925,23 @@
      "ref": 3,
      "link": "https://flask.palletsprojects.com/en/stable/patterns/celery/#integrate-celery-with-flask",
      "breadcrumb": "Background Tasks with Celery > Integrate Celery with Flask",
-     "quote": "Celery configuration is taken from the CELERY key in the Flask configuration. The Celery app is set as the default, so that it is seen during each request. The Task subclass automatically runs task functions with a Flask app context active, so that services like your database connections are available.",
+     "quote": "Celery uses similar ideas to Flask, with a Celery app object that has configuration and registers tasks.",
+     "ref_valid": true,
+     "quote_verified": true
+    },
+    {
+     "ref": 4,
+     "link": "https://flask.palletsprojects.com/en/stable/patterns/celery/#calling-tasks",
+     "breadcrumb": "Background Tasks with Celery > Calling Tasks",
+     "quote": "The decorated function becomes a task object with methods to call it in the background. The simplest way is to use the delay(*args, **kwargs) method.",
+     "ref_valid": true,
+     "quote_verified": true
+    },
+    {
+     "ref": 5,
+     "link": "https://flask.palletsprojects.com/en/stable/patterns/celery/#defining-tasks",
+     "breadcrumb": "Background Tasks with Celery > Defining Tasks",
+     "quote": "Using @celery_app.task to decorate task functions requires access to the celery_app object, which won’t be available when using the factory pattern. It also means that the decorated tasks are tied to the specific Flask and Celery app instances, which could be an issue during testing if you change configuration for a test.",
      "ref_valid": true,
      "quote_verified": true
     }
@@ -557,21 +949,22 @@
    "confidence": "high",
    "insufficient_context": false,
    "grounding": {
-    "citations_total": 2,
-    "citations_ref_valid": 2,
-    "quotes_given": 2,
-    "quotes_verified": 2,
+    "citations_total": 5,
+    "citations_ref_valid": 5,
+    "quotes_given": 5,
+    "quotes_verified": 5,
     "answer_markers": [
-     3
+     3,
+     5
     ],
     "answer_has_markers": true,
     "markers_valid": true
    },
    "model": "ollama/gemma2:9b",
-   "retriever": "hybrid",
+   "retriever": "local/hybrid",
    "timing_ms": {
-    "retrieval": 53.7,
-    "llm": 17837
+    "retrieval": 61.9,
+    "llm": 25348
    },
    "passages": [
     {
@@ -613,7 +1006,7 @@
   },
   {
    "question": "How do I configure middleware ordering in Django settings?",
-   "answer": "Insufficient context",
+   "answer": "This document does not contain the answer to how to configure middleware ordering in Django settings.",
    "key_points": [],
    "citations": [],
    "confidence": "low",
@@ -628,10 +1021,10 @@
     "markers_valid": false
    },
    "model": "ollama/gemma2:9b",
-   "retriever": "hybrid",
+   "retriever": "local/hybrid",
    "timing_ms": {
-    "retrieval": 44.7,
-    "llm": 5008
+    "retrieval": 103.0,
+    "llm": 6553
    },
    "passages": [
     {

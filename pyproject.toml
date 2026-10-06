@@ -1,0 +1,29 @@
+[project]
+name = "rag-demo"
+version = "0.2.0"
+description = "Crawl -> index -> retrieve -> analyze: a measured local RAG pipeline with an AnythingLLM integration"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "RUF"]
+ignore = ["S101", "RUF001", "RUF002", "RUF003"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S", "B017"]
+"rag_demo/pipeline.py" = ["E501"]  # prompt text reads better unwrapped
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_ignores = false
+ignore_missing_imports = true
+files = ["rag_demo"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
