@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flask Docs RAG Demo</title>
+<meta name="description" content="A measured, end-to-end RAG pipeline over the Flask documentation: polite crawl, structure-aware chunking, local embeddings, hybrid retrieval, cited JSON answers. Precomputed results and eval numbers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f6f2; --surface:#ffffff; --ink:#1c1c1a; --muted:#5f5e58; --line:#e2e0d8;
+  --accent:#2c5d63; --accent-soft:#e6efef; --ok:#2f6b3a; --ok-soft:#e5f0e6; --warn:#8a5a12; --warn-soft:#f6ecd9;
+  --code:#f1efe9;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1b1c1d; --surface:#232526; --ink:#e9e7e1; --muted:#a3a19a; --line:#36383a;
+    --accent:#8cc2c7; --accent-soft:#263537; --ok:#8fcf98; --ok-soft:#24362a; --warn:#e2b56b; --warn-soft:#3a3122;
+    --code:#2b2d2f;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1b1c1d; --surface:#232526; --ink:#e9e7e1; --muted:#a3a19a; --line:#36383a;
+  --accent:#8cc2c7; --accent-soft:#263537; --ok:#8fcf98; --ok-soft:#24362a; --warn:#e2b56b; --warn-soft:#3a3122;
+  --code:#2b2d2f;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif}
+a{color:var(--accent)}
+.wrap{max-width:1040px;margin:0 auto;padding:48px 16px 80px}
+header h1{font-family:"Source Serif 4",Georgia,serif;font-weight:600;font-size:clamp(28px,4.5vw,40px);line-height:1.15;margin:0 0 12px;letter-spacing:-.01em}
+.lede{color:var(--muted);max-width:720px;margin:0 0 20px;font-size:17px}
+.links{display:flex;gap:16px;flex-wrap:wrap;font-size:15px}
+h2{font-family:"Source Serif 4",Georgia,serif;font-weight:600;font-size:24px;margin:56px 0 6px}
+.sub{color:var(--muted);margin:0 0 20px;font-size:15px;max-width:760px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:32px}
+.stat{background:var(--surface);padding:16px 18px}
+.stat b{display:block;font-size:26px;font-weight:600;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:13px}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin-top:8px}
+.step{flex:1 1 150px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:14px}
+.step b{display:block;font-size:13px;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{font-weight:500;color:var(--muted);font-size:13px}
+tr:last-child td{border-bottom:0}
+tr.best td{background:var(--accent-soft)}
+.group{border-left:1px solid var(--line)}
+.note{font-size:14px;color:var(--muted);margin-top:10px}
+.qs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.qs button{font:inherit;font-size:14px;text-align:left;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 12px;cursor:pointer;max-width:100%}
+.qs button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px}
+.card h3{margin:0 0 12px;font-size:18px;font-weight:600}
+.answer{font-size:16px}
+.answer sup a{text-decoration:none;font-size:12px;font-weight:600;padding:0 2px}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px;font-size:12px}
+.pill{border:1px solid var(--line);border-radius:999px;padding:2px 10px;color:var(--muted)}
+.pill.ok{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+.pill.warn{background:var(--warn-soft);color:var(--warn);border-color:transparent}
+ul.kp{margin:10px 0 0;padding-left:20px}
+.cites{list-style:none;padding:0;margin:0}
+.cites li{padding:10px 0;border-top:1px solid var(--line);font-size:14px}
+.cites q{display:block;margin-top:4px;color:var(--muted);font-style:italic}
+details{margin-top:8px;border-top:1px solid var(--line);padding-top:8px}
+summary{cursor:pointer;font-size:14px;color:var(--accent)}
+.passage{border-top:1px solid var(--line);padding:12px 0;font-size:13px}
+.passage .hd{display:flex;gap:8px;flex-wrap:wrap;align-items:baseline;margin-bottom:6px}
+.passage pre,.json pre{white-space:pre-wrap;word-break:break-word;background:var(--code);border-radius:6px;padding:10px 12px;margin:0;font:12.5px/1.5 "IBM Plex Mono",ui-monospace,monospace;max-height:280px;overflow:auto}
+.passage.cited{box-shadow:inset 3px 0 0 var(--accent);padding-left:12px}
+.grid2{display:grid;grid-template-columns:1fr;gap:16px;margin-top:16px}
+@media (min-width:860px){.grid2{grid-template-columns:3fr 2fr}}
+.honest{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 20px}
+.honest li{margin:10px 0;font-size:15px}
+footer{margin-top:64px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
+code{font:13px "IBM Plex Mono",ui-monospace,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Crawl → index → retrieve → analyze, measured</h1>
+  <p class="lede">A small, end-to-end retrieval-augmented generation pipeline over the Flask documentation, running entirely on local, free models. Everything on this page was precomputed; no model is called when you load it.</p>
+  <div class="links">
+    <a href="https://github.com/cheddarlebel-lab/rag-demo">Source code and README</a>
+    <a href="#examples">Example queries</a>
+    <a href="#eval">Eval numbers</a>
+  </div>
+  <div class="stats" id="stats"></div>
+</header>
+
+<section>
+  <h2>Pipeline</h2>
+  <p class="sub">Each stage is a small Python module with one job, so any of them can be swapped (another vector store, another LLM) without touching the rest.</p>
+  <div class="flow">
+    <div class="step"><b>Crawl</b>Reads robots.txt first, honors crawl-delay (≥1 s), stays inside one URL prefix, caches HTML.</div>
+    <div class="step"><b>Chunk</b>Walks the Sphinx section tree; API entries and code blocks stay whole; every chunk keeps a breadcrumb and deep link.</div>
+    <div class="step"><b>Embed</b><code>nomic-embed-text</code> via ollama, with document/query task prefixes.</div>
+    <div class="step"><b>Retrieve</b>Dense cosine + BM25, fused with reciprocal-rank fusion (top 5).</div>
+    <div class="step"><b>Analyze</b>Local LLM with a JSON schema; every citation is checked in code against the retrieved passage.</div>
+  </div>
+</section>
+
+<section id="eval">
+  <h2>Retrieval eval</h2>
+  <p class="sub" id="evalsub"></p>
+  <div class="tablewrap"><table id="rettable"></table></div>
+  <p class="note"><b>Page</b>: a top-k chunk comes from a labelled page. <b>Section</b>: it comes from a labelled section or API entry on that page (stricter). Highlighted row is the retriever the pipeline uses.</p>
+
+  <h2>Answer grounding eval</h2>
+  <p class="sub">The full pipeline (retrieval plus LLM) run over the same questions, plus out-of-corpus trap questions it should refuse. Everything is checked mechanically, with no LLM acting as judge.</p>
+  <div class="tablewrap"><table id="anstable"></table></div>
+</section>
+
+<section id="examples">
+  <h2>Example queries</h2>
+  <p class="sub">Precomputed outputs of <code>python -m rag_demo ask "…"</code>. The last one is outside the corpus on purpose.</p>
+  <div class="qs" id="qs" role="group" aria-label="Example questions"></div>
+  <div id="result"></div>
+</section>
+
+<section>
+  <h2>What this demo is and isn't</h2>
+  <ul class="honest" id="honest"></ul>
+</section>
+
+<footer>
+  <p>Corpus: <a href="https://flask.palletsprojects.com/en/stable/">Flask documentation</a>, BSD-3-Clause, Copyright 2010 Pallets. Excerpts are reproduced under that license for demonstration. This project is not affiliated with Pallets.</p>
+  <p id="gen"></p>
+</footer>
+</div>
+
+<script>
+const $ = (s, el=document) => el.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const pct = x => x == null ? "–" : (x*100).toFixed(0) + "%";
+const short = u => u.replace("https://flask.palletsprojects.com/en/stable/", "");
+
+fetch("data.json").then(r => r.json()).then(render).catch(e => {
+  $("#result").innerHTML = `<p class="note">Could not load data.json (${esc(e.message)}).</p>`;
+});
+
+function render(d){
+  const re = d.retrieval_eval, ae = d.answer_eval, c = d.corpus;
+  const hy = re.hybrid_rrf;
+  const stats = [
+    [c.pages, "pages crawled"], [c.chunks.toLocaleString(), "chunks indexed"],
+    [re.questions, "labelled questions"], [pct(hy.page["hit@5"]), "page hit@5 (hybrid)"],
+    [pct(hy.section["hit@5"]), "section hit@5 (hybrid)"],
+  ];
+  if (ae) stats.push([pct(ae.quote_verified_rate), "quotes verified verbatim"]);
+  $("#stats").innerHTML = stats.map(([v,l]) => `<div class="stat"><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join("");
+
+  $("#evalsub").textContent = `${re.questions} hand-labelled questions, ${c.chunks} chunks from ${c.pages} pages. Embeddings: ${d.stack.embeddings}. Average dense query time ${re.dense_avg_query_ms_incl_embedding} ms including the query embedding, on a Mac mini (M4 Pro).`;
+  const ks = ["hit@1","hit@3","hit@5","hit@10","mrr"];
+  const rows = [["Dense (nomic-embed-text)", re.dense_nomic, false], ["BM25 (lexical baseline)", re.bm25_baseline, false], ["Hybrid RRF (used)", re.hybrid_rrf, true]];
+  $("#rettable").innerHTML = `<thead><tr><th></th>${ks.map((k,i)=>`<th class="${i==0?'group':''}">Page ${k}</th>`).join("")}${ks.map((k,i)=>`<th class="${i==0?'group':''}">Section ${k}</th>`).join("")}</tr></thead><tbody>` +
+    rows.map(([n,m,best]) => `<tr class="${best?'best':''}"><td>${n}</td>${ks.map((k,i)=>`<td class="${i==0?'group':''}">${k=="mrr"?m.page[k].toFixed(3):pct(m.page[k])}</td>`).join("")}${ks.map((k,i)=>`<td class="${i==0?'group':''}">${k=="mrr"?m.section[k].toFixed(3):pct(m.section[k])}</td>`).join("")}</tr>`).join("") + "</tbody>";
+
+  if (ae){
+    const a = [
+      ["Answers with at least one valid citation", pct(ae.answered_with_citations)],
+      ["Answers whose inline [n] markers all point at retrieved passages", pct(ae.inline_markers_valid)],
+      ["Quoted evidence found verbatim in the cited passage", pct(ae.quote_verified_rate)],
+      ["Answers citing a labelled target page", pct(ae.cites_labelled_target)],
+      ["In-corpus questions wrongly refused", pct(ae.false_abstain_rate)],
+      [`Out-of-corpus trap questions refused (${ae.trap_questions})`, pct(ae.trap_abstain_rate)],
+      ["Median LLM time per answer (local, " + esc(ae.model) + ")", (ae.median_llm_ms/1000).toFixed(1) + " s"],
+    ];
+    $("#anstable").innerHTML = `<thead><tr><th>Metric (n=${ae.questions} + ${ae.trap_questions} traps)</th><th>Result</th></tr></thead><tbody>` + a.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join("") + "</tbody>";
+  } else {
+    $("#anstable").innerHTML = `<tbody><tr><td>Not yet run</td><td></td></tr></tbody>`;
+  }
+
+  const qs = $("#qs");
+  d.examples.forEach((ex, i) => {
+    const b = document.createElement("button");
+    b.textContent = ex.question; b.setAttribute("aria-pressed", "false");
+    b.onclick = () => show(i);
+    qs.appendChild(b);
+  });
+  function show(i){
+    [...qs.children].forEach((b,j)=>b.setAttribute("aria-pressed", String(i==j)));
+    $("#result").innerHTML = example(d.examples[i]);
+  }
+  show(0);
+
+  const honest = [
+    `It is a demo on one small corpus (${c.pages} pages). The numbers are what this code measured on ${d.generated}; a different corpus or question set will give different numbers.`,
+    `The ${re.questions} eval questions and their target sections were written by hand for this demo. Several topics appear on more than one docs page, so questions may list more than one acceptable target.`,
+    "On this corpus, plain BM25 beat dense embeddings on section-level hits (exact API names such as MAX_CONTENT_LENGTH matter). Fusing both was best, so that is the default.",
+    "Grounding checks are mechanical: a citation must point at a retrieved passage, and its quote must appear in that passage. That catches invented sources. It does not prove the answer is complete or correct.",
+    "Two examples above are deliberate failure cases, left in: for the nginx question the right passage (ProxyFix) was ranked 5th and the model still said it lacked context, and for the CSRF question the right section was not retrieved at all, so the model refused instead of guessing.",
+    "Answers come from a local 9B model, so they are slower and plainer than a frontier model would give. The Claude adapter in the repo is documented but was not called to produce anything here.",
+  ];
+  $("#honest").innerHTML = honest.map(h=>`<li>${esc(h)}</li>`).join("");
+  $("#gen").textContent = `Generated ${d.generated}. Stack: ${d.stack.embeddings}, ${d.stack.llm}, ${d.stack.retriever} retrieval, top ${d.stack.top_k}.`;
+}
+
+function example(ex){
+  const cited = new Set(ex.citations.filter(c=>c.ref_valid).map(c=>c.ref));
+  const ans = esc(ex.answer).replace(/\[(\d+)\]/g, (m,n)=>`<sup><a href="#p-${n}">[${n}]</a></sup>`);
+  const g = ex.grounding;
+  const pills = [
+    `<span class="pill">confidence: ${esc(ex.confidence)}</span>`,
+    ex.insufficient_context ? `<span class="pill warn">insufficient context: refused to guess</span>` : "",
+    g.citations_total ? `<span class="pill ${g.quotes_verified==g.quotes_given&&g.quotes_given?'ok':'warn'}">${g.quotes_verified}/${g.quotes_given} quotes verified</span>` : "",
+    `<span class="pill">retrieval ${ex.timing_ms.retrieval} ms</span>`,
+    `<span class="pill">LLM ${(ex.timing_ms.llm/1000).toFixed(1)} s</span>`,
+    `<span class="pill">${esc(ex.model)}</span>`,
+  ].join("");
+  const cites = ex.citations.length ? `<ul class="cites">${ex.citations.map(c=>`<li>
+      <b>[${esc(c.ref)}]</b> ${c.link?`<a href="${esc(c.link)}" target="_blank" rel="noopener">${esc(c.breadcrumb)}</a>`:"(invalid reference)"}
+      ${c.quote_verified?'<span class="pill ok">verified</span>':(c.quote?'<span class="pill warn">quote not found verbatim</span>':'<span class="pill warn">no quote given</span>')}
+      ${c.quote?`<q>${esc(c.quote)}</q>`:""}</li>`).join("")}</ul>` : `<p class="note">No citations, as expected when the model refuses.</p>`;
+  const passages = ex.passages.map(p=>`<div class="passage ${cited.has(p.rank)?'cited':''}" id="p-${p.rank}">
+      <div class="hd"><b>[${p.rank}]</b><a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.breadcrumb)}</a><span class="pill">${esc(p.kind)}</span><span class="pill">${esc(short(p.link))}</span></div>
+      <pre>${esc(p.text)}</pre></div>`).join("");
+  const raw = {...ex}; delete raw.passages;
+  return `<div class="grid2">
+    <div class="card"><h3>${esc(ex.question)}</h3>
+      <div class="answer">${ans}</div>
+      ${ex.key_points?.length?`<ul class="kp">${ex.key_points.map(k=>`<li>${esc(k)}</li>`).join("")}</ul>`:""}
+      <div class="meta">${pills}</div>
+      <details class="json"><summary>Raw structured output (JSON)</summary><pre>${esc(JSON.stringify(raw,null,2))}</pre></details>
+    </div>
+    <div class="card"><h3>Citations</h3>${cites}</div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>Retrieved passages (top ${ex.passages.length}, ${esc(ex.retriever||"hybrid")})</h3>${passages}</div>`;
+}
+</script>
+</body>
+</html>

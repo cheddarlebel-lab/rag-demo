@@ -1,0 +1,690 @@
+{
+  "questions": 50,
+  "corpus": {
+    "embed_model": "nomic-embed-text",
+    "dims": 768,
+    "chunks": 1093,
+    "pages": 74,
+    "chunk_max_chars": 1500
+  },
+  "dense_nomic": {
+    "page": {
+      "hit@1": 0.72,
+      "hit@3": 0.82,
+      "hit@5": 0.88,
+      "hit@10": 0.96,
+      "mrr": 0.797
+    },
+    "section": {
+      "hit@1": 0.52,
+      "hit@3": 0.66,
+      "hit@5": 0.7,
+      "hit@10": 0.8,
+      "mrr": 0.619
+    }
+  },
+  "bm25_baseline": {
+    "page": {
+      "hit@1": 0.7,
+      "hit@3": 0.9,
+      "hit@5": 0.94,
+      "hit@10": 0.94,
+      "mrr": 0.796
+    },
+    "section": {
+      "hit@1": 0.52,
+      "hit@3": 0.76,
+      "hit@5": 0.84,
+      "hit@10": 0.86,
+      "mrr": 0.649
+    }
+  },
+  "hybrid_rrf": {
+    "page": {
+      "hit@1": 0.74,
+      "hit@3": 0.88,
+      "hit@5": 0.96,
+      "hit@10": 1.0,
+      "mrr": 0.825
+    },
+    "section": {
+      "hit@1": 0.58,
+      "hit@3": 0.76,
+      "hit@5": 0.9,
+      "hit@10": 0.98,
+      "mrr": 0.704
+    }
+  },
+  "dense_avg_query_ms_incl_embedding": 20.3,
+  "per_question": [
+    {
+      "q": "What is the minimum Python version Flask supports?",
+      "targets": [
+        "installation/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/installation/#greenlet",
+        "https://flask.palletsprojects.com/en/stable/changes/#version-3-1-0",
+        "https://flask.palletsprojects.com/en/stable/installation/#python-version"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I turn on the interactive debugger and auto reloader when running locally?",
+      "targets": [
+        "quickstart/",
+        "cli/",
+        "config/",
+        "server/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/debugging/#external-debuggers",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Flask.run",
+        "https://flask.palletsprojects.com/en/stable/debugging/#in-production"
+      ],
+      "dense_first_relevant_page_rank": 4
+    },
+    {
+      "q": "How can I capture an integer from the URL path as a view argument?",
+      "targets": [
+        "quickstart/",
+        "api/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/tutorial/views/#blueprints-and-views",
+        "https://flask.palletsprojects.com/en/stable/views/#url-variables",
+        "https://flask.palletsprojects.com/en/stable/api/#view-function-options"
+      ],
+      "dense_first_relevant_page_rank": 3
+    },
+    {
+      "q": "Why does a route defined with a trailing slash redirect when I visit it without the slash?",
+      "targets": [
+        "quickstart/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/api/#url-route-registrations",
+        "https://flask.palletsprojects.com/en/stable/quickstart/#unique-urls-redirection-behavior",
+        "https://flask.palletsprojects.com/en/stable/api/#url-route-registrations"
+      ],
+      "dense_first_relevant_page_rank": 2
+    },
+    {
+      "q": "How do I generate the URL for a view function instead of hard-coding it?",
+      "targets": [
+        "quickstart/",
+        "api/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/tutorial/views/#blueprints-and-views",
+        "https://flask.palletsprojects.com/en/stable/patterns/streaming/#basic-usage",
+        "https://flask.palletsprojects.com/en/stable/views/#basic-reusable-view"
+      ],
+      "dense_first_relevant_page_rank": 8
+    },
+    {
+      "q": "How do I make one view accept both GET and POST requests?",
+      "targets": [
+        "quickstart/",
+        "api/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/tutorial/views/#blueprints-and-views",
+        "https://flask.palletsprojects.com/en/stable/patterns/wtforms/#in-the-view",
+        "https://flask.palletsprojects.com/en/stable/lifecycle/#how-a-request-is-handled"
+      ],
+      "dense_first_relevant_page_rank": 6
+    },
+    {
+      "q": "How do I read query string parameters like ?key=value?",
+      "targets": [
+        "quickstart/",
+        "api/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/patterns/mongoengine/#queries",
+        "https://flask.palletsprojects.com/en/stable/tutorial/views/#login",
+        "https://flask.palletsprojects.com/en/stable/patterns/sqlite3/#easy-querying"
+      ],
+      "dense_first_relevant_page_rank": 4
+    },
+    {
+      "q": "How do I parse a JSON body sent by the client?",
+      "targets": [
+        "api/",
+        "patterns/javascript/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/testing/#sending-requests-with-the-test-client",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Request.get_data",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Request.want_form_data_parsed"
+      ],
+      "dense_first_relevant_page_rank": 2
+    },
+    {
+      "q": "How should I sanitize the filename of an uploaded file before saving it?",
+      "targets": [
+        "quickstart/",
+        "patterns/fileuploads/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/quickstart/#file-uploads",
+        "https://flask.palletsprojects.com/en/stable/patterns/fileuploads/#a-gentle-introduction",
+        "https://flask.palletsprojects.com/en/stable/quickstart/#file-uploads"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I limit the maximum size of an upload so large requests are rejected?",
+      "targets": [
+        "patterns/fileuploads/",
+        "config/",
+        "web-security/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/patterns/fileuploads/#improving-uploads",
+        "https://flask.palletsprojects.com/en/stable/config/#MAX_CONTENT_LENGTH",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Request.max_content_length"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "If a view returns a dict, what does Flask do with it?",
+      "targets": [
+        "quickstart/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/tutorial/views/#blueprints-and-views",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Request.view_args",
+        "https://flask.palletsprojects.com/en/stable/lifecycle/#how-a-request-is-handled"
+      ],
+      "dense_first_relevant_page_rank": 13
+    },
+    {
+      "q": "How do I stop the request early and return a 404 error?",
+      "targets": [
+        "quickstart/",
+        "api/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/quickstart/#redirects-and-errors",
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#custom-error-pages",
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#returning-api-errors-as-json"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "Why do sessions need a secret key, and how do I generate a good one?",
+      "targets": [
+        "quickstart/",
+        "config/",
+        "tutorial/deploy/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/api/#sessions",
+        "https://flask.palletsprojects.com/en/stable/quickstart/#sessions",
+        "https://flask.palletsprojects.com/en/stable/config/#SECRET_KEY"
+      ],
+      "dense_first_relevant_page_rank": 2
+    },
+    {
+      "q": "How can I show a one-time message to the user on the next page?",
+      "targets": [
+        "quickstart/",
+        "patterns/flashing/",
+        "api/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/quickstart/#message-flashing",
+        "https://flask.palletsprojects.com/en/stable/patterns/fileuploads/#upload-progress-bars",
+        "https://flask.palletsprojects.com/en/stable/patterns/flashing/#message-flashing"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I show flashed messages with different categories like error vs info?",
+      "targets": [
+        "patterns/flashing/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/patterns/flashing/#flashing-with-categories",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.flash",
+        "https://flask.palletsprojects.com/en/stable/changes/#version-0-3"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I register a custom Jinja filter?",
+      "targets": [
+        "templating/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/templating/#registering-filters",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Flask.template_filter",
+        "https://flask.palletsprojects.com/en/stable/patterns/wtforms/#the-forms"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I make a variable available in every template automatically?",
+      "targets": [
+        "templating/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/templating/#jinja-setup",
+        "https://flask.palletsprojects.com/en/stable/templating/#standard-context",
+        "https://flask.palletsprojects.com/en/stable/design/#one-template-engine"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "Which file extensions have autoescaping enabled by default in templates?",
+      "targets": [
+        "templating/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/templating/#jinja-setup",
+        "https://flask.palletsprojects.com/en/stable/quickstart/#rendering-templates",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Flask.select_jinja_autoescape"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I write a pytest fixture that creates a test client?",
+      "targets": [
+        "testing/",
+        "tutorial/tests/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/testing/#fixtures",
+        "https://flask.palletsprojects.com/en/stable/tutorial/tests/#setup-and-fixtures",
+        "https://flask.palletsprojects.com/en/stable/tutorial/tests/#authentication"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How can a test follow redirects and check the final page?",
+      "targets": [
+        "testing/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/testing/#following-redirects",
+        "https://flask.palletsprojects.com/en/stable/patterns/javascript/#following-redirects",
+        "https://flask.palletsprojects.com/en/stable/tutorial/views/#the-first-view-register"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I test a custom CLI command?",
+      "targets": [
+        "testing/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/testing/#sending-requests-with-the-test-client",
+        "https://flask.palletsprojects.com/en/stable/tutorial/tests/#factory",
+        "https://flask.palletsprojects.com/en/stable/testing/#running-commands-with-the-cli-runner"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I return API errors as JSON instead of HTML?",
+      "targets": [
+        "errorhandling/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#generic-exception-handlers",
+        "https://flask.palletsprojects.com/en/stable/config/#TRAP_HTTP_EXCEPTIONS",
+        "https://flask.palletsprojects.com/en/stable/config/#PROPAGATE_EXCEPTIONS"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I register a handler for a specific HTTP error code?",
+      "targets": [
+        "errorhandling/",
+        "api/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#registering",
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#generic-exception-handlers",
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#error-handlers"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I get emailed when an error happens in production?",
+      "targets": [
+        "logging/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#error-logging-tools",
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#error-handlers",
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#handling-application-errors"
+      ],
+      "dense_first_relevant_page_rank": 6
+    },
+    {
+      "q": "How do I add the request URL and remote address to every log line?",
+      "targets": [
+        "logging/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/logging/#injecting-request-information",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Request.remote_addr",
+        "https://flask.palletsprojects.com/en/stable/changes/#version-0-6"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I load configuration values from environment variables with a FLASK_ prefix?",
+      "targets": [
+        "config/",
+        "api/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/config/#configuring-from-environment-variables",
+        "https://flask.palletsprojects.com/en/stable/config/#configuring-from-python-files",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Config.from_prefixed_env"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How can I load config from a TOML file?",
+      "targets": [
+        "config/",
+        "api/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/config/#configuring-from-data-files",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Flask.config",
+        "https://flask.palletsprojects.com/en/stable/config/#configuring-from-python-files"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "What is the instance folder and what is it used for?",
+      "targets": [
+        "config/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/config/#instance-folders",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Flask.instance_path",
+        "https://flask.palletsprojects.com/en/stable/tutorial/factory/#the-application-factory"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I subscribe to the signal that fires when a template is rendered?",
+      "targets": [
+        "signals/",
+        "api/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/signals/#subscribing-to-signals",
+        "https://flask.palletsprojects.com/en/stable/signals/#decorator-based-signal-subscriptions",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.template_rendered"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I write a class-based view that dispatches on HTTP method?",
+      "targets": [
+        "views/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/views/#method-hints",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.views.View",
+        "https://flask.palletsprojects.com/en/stable/views/#basic-reusable-view"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "Where should I store a database connection so it is reused during one request?",
+      "targets": [
+        "appcontext/",
+        "tutorial/database/",
+        "patterns/sqlite3/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/tutorial/database/#connect-to-the-database",
+        "https://flask.palletsprojects.com/en/stable/tutorial/database/#define-and-access-the-database",
+        "https://flask.palletsprojects.com/en/stable/patterns/sqlite3/#using-sqlite-3-with-flask"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "I get 'Working outside of application context'. How do I fix it?",
+      "targets": [
+        "appcontext/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/appcontext/#manually-push-a-context",
+        "https://flask.palletsprojects.com/en/stable/reqcontext/#manually-push-a-context",
+        "https://flask.palletsprojects.com/en/stable/patterns/sqlite3/#connect-on-demand"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I register a function that runs after every request even if an exception occurred?",
+      "targets": [
+        "reqcontext/",
+        "api/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/lifecycle/#how-a-request-is-handled",
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#registering",
+        "https://flask.palletsprojects.com/en/stable/errorhandling/#handling"
+      ],
+      "dense_first_relevant_page_rank": 6
+    },
+    {
+      "q": "How do I mount a blueprint under a URL prefix?",
+      "targets": [
+        "blueprints/",
+        "api/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/blueprints/#why-blueprints",
+        "https://flask.palletsprojects.com/en/stable/blueprints/#nesting-blueprints",
+        "https://flask.palletsprojects.com/en/stable/blueprints/#blueprint-resource-folder"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "Can blueprints be nested inside other blueprints?",
+      "targets": [
+        "blueprints/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/blueprints/#blueprint-resource-folder",
+        "https://flask.palletsprojects.com/en/stable/blueprints/#why-blueprints",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Flask.blueprints"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I add my own command to the flask command line tool?",
+      "targets": [
+        "cli/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/cli/#plugins",
+        "https://flask.palletsprojects.com/en/stable/cli/#custom-commands",
+        "https://flask.palletsprojects.com/en/stable/cli/#application-discovery"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "Does the flask CLI read .env files automatically?",
+      "targets": [
+        "cli/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/cli/#environment-variables-from-dotenv",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.cli.FlaskGroup",
+        "https://flask.palletsprojects.com/en/stable/cli/#command-line-interface"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "What should I do when the dev server says the address is already in use?",
+      "targets": [
+        "server/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/server/#in-code",
+        "https://flask.palletsprojects.com/en/stable/deploying/#deploying-to-production",
+        "https://flask.palletsprojects.com/en/stable/tutorial/deploy/#run-with-a-production-server"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How does Flask protect against cross-site scripting?",
+      "targets": [
+        "web-security/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/web-security/#cross-site-scripting-xss",
+        "https://flask.palletsprojects.com/en/stable/web-security/#x-content-type-options",
+        "https://flask.palletsprojects.com/en/stable/web-security/#cross-site-request-forgery-csrf"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "Does Flask include CSRF protection out of the box?",
+      "targets": [
+        "web-security/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/patterns/wtforms/#the-forms",
+        "https://flask.palletsprojects.com/en/stable/templating/#controlling-autoescaping",
+        "https://flask.palletsprojects.com/en/stable/changes/#version-2-3-0"
+      ],
+      "dense_first_relevant_page_rank": 4
+    },
+    {
+      "q": "How do I set the SameSite and Secure attributes on the session cookie?",
+      "targets": [
+        "web-security/",
+        "config/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/config/#SESSION_COOKIE_DOMAIN",
+        "https://flask.palletsprojects.com/en/stable/web-security/#set-cookie-options",
+        "https://flask.palletsprojects.com/en/stable/changes/#version-1-0"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "Can I write async view functions, and what are the performance trade-offs?",
+      "targets": [
+        "async-await/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/async-await/#performance",
+        "https://flask.palletsprojects.com/en/stable/async-await/#extensions",
+        "https://flask.palletsprojects.com/en/stable/design/#async-await-and-asgi-support"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "Why does Flask use an explicit application object instead of a global one?",
+      "targets": [
+        "design/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/design/#the-explicit-application-object",
+        "https://flask.palletsprojects.com/en/stable/design/#the-explicit-application-object",
+        "https://flask.palletsprojects.com/en/stable/design/#the-explicit-application-object"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I organize a large app as a Python package instead of a single module?",
+      "targets": [
+        "patterns/packages/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/design/#the-explicit-application-object",
+        "https://flask.palletsprojects.com/en/stable/patterns/packages/#large-applications-as-packages",
+        "https://flask.palletsprojects.com/en/stable/patterns/packages/#working-with-blueprints"
+      ],
+      "dense_first_relevant_page_rank": 2
+    },
+    {
+      "q": "What is the application factory pattern and how do extensions fit into it?",
+      "targets": [
+        "patterns/appfactories/",
+        "tutorial/factory/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/patterns/appfactories/#factories-extensions",
+        "https://flask.palletsprojects.com/en/stable/extensiondev/#the-extension-class-and-initialization",
+        "https://flask.palletsprojects.com/en/stable/patterns/appfactories/#application-factories"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I stream a large response to the client chunk by chunk?",
+      "targets": [
+        "patterns/streaming/",
+        "api/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/patterns/streaming/#http-response-behavior",
+        "https://flask.palletsprojects.com/en/stable/api/#flask.Flask.make_response",
+        "https://flask.palletsprojects.com/en/stable/patterns/fileuploads/#upload-progress-bars"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I run Celery background tasks with Flask?",
+      "targets": [
+        "patterns/celery/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/patterns/celery/#background-tasks-with-celery",
+        "https://flask.palletsprojects.com/en/stable/async-await/#background-tasks",
+        "https://flask.palletsprojects.com/en/stable/server/#in-code"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I write a login_required decorator?",
+      "targets": [
+        "patterns/viewdecorators/",
+        "tutorial/views/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/tutorial/views/#require-authentication-in-other-views",
+        "https://flask.palletsprojects.com/en/stable/tutorial/blog/#create",
+        "https://flask.palletsprojects.com/en/stable/patterns/viewdecorators/#login-required-decorator"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "How do I run my app with gunicorn and bind it to all interfaces?",
+      "targets": [
+        "deploying/gunicorn/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/deploying/gunicorn/#binding-externally",
+        "https://flask.palletsprojects.com/en/stable/deploying/gunicorn/#installing",
+        "https://flask.palletsprojects.com/en/stable/deploying/gunicorn/#running"
+      ],
+      "dense_first_relevant_page_rank": 1
+    },
+    {
+      "q": "My app is behind nginx and url_for generates http instead of https. How do I fix it?",
+      "targets": [
+        "deploying/proxy_fix/"
+      ],
+      "dense_top3": [
+        "https://flask.palletsprojects.com/en/stable/deploying/gunicorn/#binding-externally",
+        "https://flask.palletsprojects.com/en/stable/deploying/waitress/#binding-externally",
+        "https://flask.palletsprojects.com/en/stable/changes/#version-1-0"
+      ],
+      "dense_first_relevant_page_rank": 13
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{"q": "What is the minimum Python version Flask supports?", "targets": [{"page": "installation/", "anchors": ["python-version"]}]}
+{"q": "How do I turn on the interactive debugger and auto reloader when running locally?", "targets": [{"page": "quickstart/", "anchors": ["debug-mode"]}, {"page": "cli/", "anchors": ["debug-mode"]}, {"page": "config/", "anchors": ["debug-mode"]}, {"page": "server/", "anchors": ["command-line"]}]}
+{"q": "How can I capture an integer from the URL path as a view argument?", "targets": [{"page": "quickstart/", "anchors": ["variable-rules"]}, {"page": "api/", "anchors": ["url-route-registrations"]}]}
+{"q": "Why does a route defined with a trailing slash redirect when I visit it without the slash?", "targets": [{"page": "quickstart/", "anchors": ["unique-urls-redirection-behavior"]}]}
+{"q": "How do I generate the URL for a view function instead of hard-coding it?", "targets": [{"page": "quickstart/", "anchors": ["url-building"]}, {"page": "api/", "anchors": ["flask.url_for"]}]}
+{"q": "How do I make one view accept both GET and POST requests?", "targets": [{"page": "quickstart/", "anchors": ["http-methods"]}, {"page": "api/", "anchors": ["flask.Flask.route"]}]}
+{"q": "How do I read query string parameters like ?key=value?", "targets": [{"page": "quickstart/", "anchors": ["the-request-object"]}, {"page": "api/", "anchors": ["flask.Request.args"]}]}
+{"q": "How do I parse a JSON body sent by the client?", "targets": [{"page": "api/", "anchors": ["flask.Request.get_json"]}, {"page": "patterns/javascript/", "anchors": ["receiving-json-in-views"]}]}
+{"q": "How should I sanitize the filename of an uploaded file before saving it?", "targets": [{"page": "quickstart/", "anchors": ["file-uploads"]}, {"page": "patterns/fileuploads/", "anchors": ["a-gentle-introduction"]}]}
+{"q": "How do I limit the maximum size of an upload so large requests are rejected?", "targets": [{"page": "patterns/fileuploads/", "anchors": ["improving-uploads"]}, {"page": "config/", "anchors": ["MAX_CONTENT_LENGTH"]}, {"page": "web-security/", "anchors": ["resource-use"]}]}
+{"q": "If a view returns a dict, what does Flask do with it?", "targets": [{"page": "quickstart/", "anchors": ["about-responses", "apis-with-json"]}]}
+{"q": "How do I stop the request early and return a 404 error?", "targets": [{"page": "quickstart/", "anchors": ["redirects-and-errors"]}, {"page": "api/", "anchors": ["flask.abort"]}]}
+{"q": "Why do sessions need a secret key, and how do I generate a good one?", "targets": [{"page": "quickstart/", "anchors": ["sessions"]}, {"page": "config/", "anchors": ["SECRET_KEY"]}, {"page": "tutorial/deploy/", "anchors": ["configure-the-secret-key"]}]}
+{"q": "How can I show a one-time message to the user on the next page?", "targets": [{"page": "quickstart/", "anchors": ["message-flashing"]}, {"page": "patterns/flashing/", "anchors": ["simple-flashing", "message-flashing"]}, {"page": "api/", "anchors": ["flask.flash"]}]}
+{"q": "How do I show flashed messages with different categories like error vs info?", "targets": [{"page": "patterns/flashing/", "anchors": ["flashing-with-categories", "filtering-flash-messages"]}]}
+{"q": "How do I register a custom Jinja filter?", "targets": [{"page": "templating/", "anchors": ["registering-filters"]}]}
+{"q": "How do I make a variable available in every template automatically?", "targets": [{"page": "templating/", "anchors": ["context-processors"]}]}
+{"q": "Which file extensions have autoescaping enabled by default in templates?", "targets": [{"page": "templating/", "anchors": ["jinja-setup", "controlling-autoescaping"]}]}
+{"q": "How do I write a pytest fixture that creates a test client?", "targets": [{"page": "testing/", "anchors": ["fixtures"]}, {"page": "tutorial/tests/", "anchors": ["setup-and-fixtures"]}]}
+{"q": "How can a test follow redirects and check the final page?", "targets": [{"page": "testing/", "anchors": ["following-redirects"]}]}
+{"q": "How do I test a custom CLI command?", "targets": [{"page": "testing/", "anchors": ["running-commands-with-the-cli-runner"]}]}
+{"q": "How do I return API errors as JSON instead of HTML?", "targets": [{"page": "errorhandling/", "anchors": ["returning-api-errors-as-json"]}]}
+{"q": "How do I register a handler for a specific HTTP error code?", "targets": [{"page": "errorhandling/", "anchors": ["registering", "error-handlers"]}, {"page": "api/", "anchors": ["flask.Flask.errorhandler"]}]}
+{"q": "How do I get emailed when an error happens in production?", "targets": [{"page": "logging/", "anchors": ["email-errors-to-admins"]}]}
+{"q": "How do I add the request URL and remote address to every log line?", "targets": [{"page": "logging/", "anchors": ["injecting-request-information"]}]}
+{"q": "How do I load configuration values from environment variables with a FLASK_ prefix?", "targets": [{"page": "config/", "anchors": ["configuring-from-environment-variables"]}, {"page": "api/", "anchors": ["flask.Config.from_prefixed_env"]}]}
+{"q": "How can I load config from a TOML file?", "targets": [{"page": "config/", "anchors": ["configuring-from-data-files"]}, {"page": "api/", "anchors": ["flask.Config.from_file"]}]}
+{"q": "What is the instance folder and what is it used for?", "targets": [{"page": "config/", "anchors": ["instance-folders"]}]}
+{"q": "How do I subscribe to the signal that fires when a template is rendered?", "targets": [{"page": "signals/", "anchors": ["subscribing-to-signals", "decorator-based-signal-subscriptions", "core-signals"]}, {"page": "api/", "anchors": ["flask.template_rendered"]}]}
+{"q": "How do I write a class-based view that dispatches on HTTP method?", "targets": [{"page": "views/", "anchors": ["method-dispatching-and-apis", "method-hints"]}]}
+{"q": "Where should I store a database connection so it is reused during one request?", "targets": [{"page": "appcontext/", "anchors": ["storing-data"]}, {"page": "tutorial/database/", "anchors": ["connect-to-the-database"]}, {"page": "patterns/sqlite3/", "anchors": ["connect-on-demand"]}]}
+{"q": "I get 'Working outside of application context'. How do I fix it?", "targets": [{"page": "appcontext/", "anchors": ["purpose-of-the-context", "manually-push-a-context"]}]}
+{"q": "How do I register a function that runs after every request even if an exception occurred?", "targets": [{"page": "reqcontext/", "anchors": ["teardown-callbacks", "callbacks-and-errors"]}, {"page": "api/", "anchors": ["flask.Flask.teardown_appcontext", "flask.Flask.teardown_request"]}]}
+{"q": "How do I mount a blueprint under a URL prefix?", "targets": [{"page": "blueprints/", "anchors": ["registering-blueprints"]}, {"page": "api/", "anchors": ["flask.Flask.register_blueprint"]}]}
+{"q": "Can blueprints be nested inside other blueprints?", "targets": [{"page": "blueprints/", "anchors": ["nesting-blueprints"]}]}
+{"q": "How do I add my own command to the flask command line tool?", "targets": [{"page": "cli/", "anchors": ["custom-commands"]}]}
+{"q": "Does the flask CLI read .env files automatically?", "targets": [{"page": "cli/", "anchors": ["environment-variables-from-dotenv", "disable-dotenv"]}]}
+{"q": "What should I do when the dev server says the address is already in use?", "targets": [{"page": "server/", "anchors": ["address-already-in-use"]}]}
+{"q": "How does Flask protect against cross-site scripting?", "targets": [{"page": "web-security/", "anchors": ["cross-site-scripting-xss"]}]}
+{"q": "Does Flask include CSRF protection out of the box?", "targets": [{"page": "web-security/", "anchors": ["cross-site-request-forgery-csrf"]}]}
+{"q": "How do I set the SameSite and Secure attributes on the session cookie?", "targets": [{"page": "web-security/", "anchors": ["set-cookie-options"]}, {"page": "config/", "anchors": ["SESSION_COOKIE_SAMESITE", "SESSION_COOKIE_SECURE"]}]}
+{"q": "Can I write async view functions, and what are the performance trade-offs?", "targets": [{"page": "async-await/", "anchors": ["using-async-and-await", "performance"]}]}
+{"q": "Why does Flask use an explicit application object instead of a global one?", "targets": [{"page": "design/", "anchors": ["the-explicit-application-object"]}]}
+{"q": "How do I organize a large app as a Python package instead of a single module?", "targets": [{"page": "patterns/packages/", "anchors": ["simple-packages", "large-applications-as-packages"]}]}
+{"q": "What is the application factory pattern and how do extensions fit into it?", "targets": [{"page": "patterns/appfactories/", "anchors": ["basic-factories", "factories-extensions", "application-factories"]}, {"page": "tutorial/factory/", "anchors": ["the-application-factory"]}]}
+{"q": "How do I stream a large response to the client chunk by chunk?", "targets": [{"page": "patterns/streaming/", "anchors": ["basic-usage", "streaming-contents"]}, {"page": "api/", "anchors": ["flask.stream_with_context"]}]}
+{"q": "How do I run Celery background tasks with Flask?", "targets": [{"page": "patterns/celery/", "anchors": ["integrate-celery-with-flask", "background-tasks-with-celery", "defining-tasks"]}]}
+{"q": "How do I write a login_required decorator?", "targets": [{"page": "patterns/viewdecorators/", "anchors": ["login-required-decorator"]}, {"page": "tutorial/views/", "anchors": ["require-authentication-in-other-views"]}]}
+{"q": "How do I run my app with gunicorn and bind it to all interfaces?", "targets": [{"page": "deploying/gunicorn/", "anchors": ["running", "binding-externally"]}]}
+{"q": "My app is behind nginx and url_for generates http instead of https. How do I fix it?", "targets": [{"page": "deploying/proxy_fix/", "anchors": ["tell-flask-it-is-behind-a-proxy"]}]}

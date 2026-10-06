@@ -1,0 +1,675 @@
+{
+ "generated": "2026-10-05",
+ "corpus": {
+  "name": "Flask documentation (stable)",
+  "source": "https://flask.palletsprojects.com/en/stable/",
+  "license": "BSD-3-Clause, Copyright 2010 Pallets",
+  "crawl_delay_s": 1.0,
+  "skipped_by_robots": 0,
+  "embed_model": "nomic-embed-text",
+  "dims": 768,
+  "chunks": 1093,
+  "pages": 74,
+  "chunk_max_chars": 1500
+ },
+ "stack": {
+  "embeddings": "ollama/nomic-embed-text",
+  "llm": "ollama/gemma2:9b",
+  "retriever": "hybrid",
+  "top_k": 5
+ },
+ "retrieval_eval": {
+  "questions": 50,
+  "dense_nomic": {
+   "page": {
+    "hit@1": 0.72,
+    "hit@3": 0.82,
+    "hit@5": 0.88,
+    "hit@10": 0.96,
+    "mrr": 0.797
+   },
+   "section": {
+    "hit@1": 0.52,
+    "hit@3": 0.66,
+    "hit@5": 0.7,
+    "hit@10": 0.8,
+    "mrr": 0.619
+   }
+  },
+  "bm25_baseline": {
+   "page": {
+    "hit@1": 0.7,
+    "hit@3": 0.9,
+    "hit@5": 0.94,
+    "hit@10": 0.94,
+    "mrr": 0.796
+   },
+   "section": {
+    "hit@1": 0.52,
+    "hit@3": 0.76,
+    "hit@5": 0.84,
+    "hit@10": 0.86,
+    "mrr": 0.649
+   }
+  },
+  "hybrid_rrf": {
+   "page": {
+    "hit@1": 0.74,
+    "hit@3": 0.88,
+    "hit@5": 0.96,
+    "hit@10": 1.0,
+    "mrr": 0.825
+   },
+   "section": {
+    "hit@1": 0.58,
+    "hit@3": 0.76,
+    "hit@5": 0.9,
+    "hit@10": 0.98,
+    "mrr": 0.704
+   }
+  },
+  "dense_avg_query_ms_incl_embedding": 20.3
+ },
+ "answer_eval": {
+  "model": "gemma2:9b",
+  "retriever": "hybrid",
+  "top_k": 5,
+  "questions": 50,
+  "trap_questions": 5,
+  "answered_with_citations": 0.96,
+  "inline_markers_valid": 0.92,
+  "quote_verified_rate": 0.871,
+  "cites_labelled_target": 0.82,
+  "false_abstain_rate": 0.04,
+  "trap_abstain_rate": 1.0,
+  "median_llm_ms": 12191,
+  "wall_clock_s": 700
+ },
+ "examples": [
+  {
+   "question": "How do I limit the maximum size of an upload so large requests are rejected?",
+   "answer": "You can limit the maximum allowed payload by setting the `MAX_CONTENT_LENGTH` config key [1].  The code example provided sets the limit to 16 megabytes. [1]",
+   "key_points": [
+    "MAX_CONTENT_LENGTH",
+    "RequestEntityTooLarge exception"
+   ],
+   "citations": [
+    {
+     "ref": 1,
+     "link": "https://flask.palletsprojects.com/en/stable/patterns/fileuploads/#improving-uploads",
+     "breadcrumb": "Uploading Files > Improving Uploads",
+     "quote": "But you can limit that by setting the MAX_CONTENT_LENGTH config key:",
+     "ref_valid": true,
+     "quote_verified": true
+    }
+   ],
+   "confidence": "high",
+   "insufficient_context": false,
+   "grounding": {
+    "citations_total": 1,
+    "citations_ref_valid": 1,
+    "quotes_given": 1,
+    "quotes_verified": 1,
+    "answer_markers": [
+     1
+    ],
+    "answer_has_markers": true,
+    "markers_valid": true
+   },
+   "model": "ollama/gemma2:9b",
+   "retriever": "hybrid",
+   "timing_ms": {
+    "retrieval": 90.7,
+    "llm": 10502
+   },
+   "passages": [
+    {
+     "rank": 1,
+     "link": "https://flask.palletsprojects.com/en/stable/patterns/fileuploads/#improving-uploads",
+     "breadcrumb": "Uploading Files > Improving Uploads",
+     "kind": "prose",
+     "text": "Changelog \n Added in version 0.6.\n\nSo how exactly does Flask handle uploads? Well it will store them in the\nwebserver’s memory if the files are reasonably small, otherwise in a\ntemporary location (as returned by tempfile.gettempdir() ). But how\ndo you specify the maximum file size after which an upload is aborted? By\ndefault Flask will happily accept file uploads with an unlimited amount of\nmemory, but you can limit that by setting the MAX_CONTENT_LENGTH \nconfig key:\n\n```\nfrom flask import Flask, Request\n\napp = Flask(__name__)\napp.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000\n```\n\nThe code above will limit the maximum allowed payload to 16 megabytes.\nIf a larger file is transmitted, Flask will raise a\n RequestEntityTooLarge exception.\n\nConnection Reset Issue \n When using the local development server, you may get a connection\nreset error instead of a 413 response. You will get the correct\nstatus response when running the app with a production WSGI server.\n\nThis feature was added in Flask 0.6 but can be achieved in older versions\nas well by subclassing the request object. For more information on that\nconsult the Werkzeug documentation on file handling."
+    },
+    {
+     "rank": 2,
+     "link": "https://flask.palletsprojects.com/en/stable/config/#MAX_FORM_MEMORY_SIZE",
+     "breadcrumb": "Configuration Handling > Builtin Configuration Values > MAX_FORM_MEMORY_SIZE",
+     "kind": "api",
+     "text": "MAX_FORM_MEMORY_SIZE\n\nThe maximum size in bytes any non-file form field may be in a\n multipart/form-data body. If this limit is exceeded, a 413\n RequestEntityTooLarge error is raised. If it is\nset to None , no limit is enforced at the Flask application level.\n\nEach request defaults to this config. It can be set on a specific\n Request.max_form_memory_parts to apply the limit to that specific\nview. This should be set appropriately based on an application’s or view’s\nspecific needs.\n\nDefault: 500_000\n\nAdded in version 3.1."
+    },
+    {
+     "rank": 3,
+     "link": "https://flask.palletsprojects.com/en/stable/api/#flask.Request.max_form_memory_size",
+     "breadcrumb": "API > Incoming Request Data > Request > max_form_memory_size",
+     "kind": "api",
+     "text": "property max_form_memory_size : int | None\n\nThe maximum size in bytes any non-file form field may be in a\n multipart/form-data body. If this limit is exceeded, a 413\n RequestEntityTooLarge error is raised. If it\nis set to None , no limit is enforced at the Flask application level.\n\nEach request defaults to the MAX_FORM_MEMORY_SIZE config, which\ndefaults to 500_000 . It can be set on a specific request to\napply the limit to that specific view. This should be set appropriately\nbased on an application’s or view’s specific needs.\n\nChanged in version 3.1: This is configurable through Flask config."
+    },
+    {
+     "rank": 4,
+     "link": "https://flask.palletsprojects.com/en/stable/config/#MAX_CONTENT_LENGTH",
+     "breadcrumb": "Configuration Handling > Builtin Configuration Values > MAX_CONTENT_LENGTH",
+     "kind": "api",
+     "text": "MAX_CONTENT_LENGTH\n\nThe maximum number of bytes that will be read during this request. If\nthis limit is exceeded, a 413 RequestEntityTooLarge \nerror is raised. If it is set to None , no limit is enforced at the\nFlask application level. However, if it is None and the request has no\n Content-Length header and the WSGI server does not indicate that it\nterminates the stream, then no data is read to avoid an infinite stream.\n\nEach request defaults to this config. It can be set on a specific\n Request.max_content_length to apply the limit to that specific\nview. This should be set appropriately based on an application’s or view’s\nspecific needs.\n\nDefault: None\n\nChangelog \n Added in version 0.6."
+    },
+    {
+     "rank": 5,
+     "link": "https://flask.palletsprojects.com/en/stable/api/#flask.Request.max_content_length",
+     "breadcrumb": "API > Incoming Request Data > Request > max_content_length",
+     "kind": "api",
+     "text": "property max_content_length : int | None\n\nThe maximum number of bytes that will be read during this request. If\nthis limit is exceeded, a 413 RequestEntityTooLarge \nerror is raised. If it is set to None , no limit is enforced at the\nFlask application level. However, if it is None and the request has\nno Content-Length header and the WSGI server does not indicate that\nit terminates the stream, then no data is read to avoid an infinite\nstream.\n\nEach request defaults to the MAX_CONTENT_LENGTH config, which\ndefaults to None . It can be set on a specific request to apply\nthe limit to that specific view. This should be set appropriately based\non an application’s or view’s specific needs.\n\nChanged in version 3.1: This can be set per-request.\n\nChangelog \n Changed in version 0.6: This is configurable through Flask config."
+    }
+   ]
+  },
+  {
+   "question": "My app is behind nginx and url_for generates http instead of https. How do I fix it?",
+   "answer": "The passages provided do not contain the answer to your question.",
+   "key_points": [],
+   "citations": [],
+   "confidence": "low",
+   "insufficient_context": true,
+   "grounding": {
+    "citations_total": 0,
+    "citations_ref_valid": 0,
+    "quotes_given": 0,
+    "quotes_verified": 0,
+    "answer_markers": [],
+    "answer_has_markers": false,
+    "markers_valid": false
+   },
+   "model": "ollama/gemma2:9b",
+   "retriever": "hybrid",
+   "timing_ms": {
+    "retrieval": 85.9,
+    "llm": 8306
+   },
+   "passages": [
+    {
+     "rank": 1,
+     "link": "https://flask.palletsprojects.com/en/stable/deploying/nginx/#configuration",
+     "breadcrumb": "nginx > Configuration",
+     "kind": "prose",
+     "text": "The nginx configuration is located at /etc/nginx/nginx.conf on\nLinux. It may be different depending on your operating system. Check the\ndocs and look for nginx.conf .\n\nRemove or comment out any existing server section. Add a server \nsection and use the proxy_pass directive to point to the address the\nWSGI server is listening on. We’ll assume the WSGI server is listening\nlocally at http://127.0.0.1:8000 .\n\n/etc/nginx.conf\n```\nserver {\n    listen 80;\n    server_name _;\n\n    location / {\n        proxy_pass http://127.0.0.1:8000/;\n        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n        proxy_set_header X-Forwarded-Proto $scheme;\n        proxy_set_header X-Forwarded-Host $host;\n        proxy_set_header X-Forwarded-Prefix /;\n    }\n}\n```\n\nThen Tell Flask it is Behind a Proxy so that your application uses these headers."
+    },
+    {
+     "rank": 2,
+     "link": "https://flask.palletsprojects.com/en/stable/deploying/nginx/#nginx",
+     "breadcrumb": "nginx",
+     "kind": "prose",
+     "text": "nginx is a fast, production level HTTP server. When serving your\napplication with one of the WSGI servers listed in Deploying to Production , it is\noften good or necessary to put a dedicated HTTP server in front of it.\nThis “reverse proxy” can handle incoming requests, TLS, and other\nsecurity and performance concerns better than the WSGI server.\n\nNginx can be installed using your system package manager, or a pre-built\nexecutable for Windows. Installing and running Nginx itself is outside\nthe scope of this doc. This page outlines the basics of configuring\nNginx to proxy your application. Be sure to read its documentation to\nunderstand what features are available."
+    },
+    {
+     "rank": 3,
+     "link": "https://flask.palletsprojects.com/en/stable/deploying/uwsgi/#binding-externally",
+     "breadcrumb": "uWSGI > Binding Externally",
+     "kind": "prose",
+     "text": "uWSGI should not be run as root with the configuration shown in this doc\nbecause it would cause your application code to run as root, which is\nnot secure. However, this means it will not be possible to bind to port\n80 or 443. Instead, a reverse proxy such as nginx or\n Apache httpd should be used in front of uWSGI. It is possible to\nrun uWSGI as root securely, but that is beyond the scope of this doc.\n\nuWSGI has optimized integration with Nginx uWSGI and\n Apache mod_proxy_uwsgi , and possibly other servers, instead of using\na standard HTTP proxy. That configuration is beyond the scope of this\ndoc, see the links for more information.\n\nYou can bind to all external IPs on a non-privileged port using the\n --http 0.0.0.0:8000 option. Don’t do this when using a reverse proxy\nsetup, otherwise it will be possible to bypass the proxy.\n\n```\n$ uwsgi --http 0.0.0.0:8000 --master -p 4 -w wsgi:app\n```\n\n0.0.0.0 is not a valid address to navigate to, you’d use a specific\nIP address in your browser."
+    },
+    {
+     "rank": 4,
+     "link": "https://flask.palletsprojects.com/en/stable/deploying/gunicorn/#binding-externally",
+     "breadcrumb": "Gunicorn > Binding Externally",
+     "kind": "prose",
+     "text": "Gunicorn should not be run as root because it would cause your\napplication code to run as root, which is not secure. However, this\nmeans it will not be possible to bind to port 80 or 443. Instead, a\nreverse proxy such as nginx or Apache httpd should be used\nin front of Gunicorn.\n\nYou can bind to all external IPs on a non-privileged port using the\n -b 0.0.0.0 option. Don’t do this when using a reverse proxy setup,\notherwise it will be possible to bypass the proxy.\n\n```\n$ gunicorn -w 4 -b 0.0.0.0 'hello:create_app()'\nListening at: http://0.0.0.0:8000 (x)\n```\n\n0.0.0.0 is not a valid address to navigate to, you’d use a specific\nIP address in your browser."
+    },
+    {
+     "rank": 5,
+     "link": "https://flask.palletsprojects.com/en/stable/deploying/proxy_fix/#tell-flask-it-is-behind-a-proxy",
+     "breadcrumb": "Tell Flask it is Behind a Proxy",
+     "kind": "prose",
+     "text": "When using a reverse proxy, or many Python hosting platforms, the proxy\nwill intercept and forward all external requests to the local WSGI\nserver.\n\nFrom the WSGI server and Flask application’s perspectives, requests are\nnow coming from the HTTP server to the local address, rather than from\nthe remote address to the external server address.\n\nHTTP servers should set X-Forwarded- headers to pass on the real\nvalues to the application. The application can then be told to trust and\nuse those values by wrapping it with the\n X-Forwarded-For Proxy Fix middleware provided by Werkzeug.\n\nThis middleware should only be used if the application is actually\nbehind a proxy, and should be configured with the number of proxies that\nare chained in front of it. Not all proxies set all the headers. Since\nincoming headers can be faked, you must set how many proxies are setting\neach header so the middleware knows what to trust.\n\n```\nfrom werkzeug.middleware.proxy_fix import ProxyFix\n\napp.wsgi_app = ProxyFix(\n    app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1\n)\n```\n\nRemember, only apply this middleware if you are behind a proxy, and set\nthe correct number of proxies that set each header. It can be a security\nissue if you get this configuration wrong."
+    }
+   ]
+  },
+  {
+   "question": "How do I return API errors as JSON instead of HTML?",
+   "answer": "You can return JSON responses to API errors by using the `jsonify()` function and the `abort()` function with a description parameter [4].",
+   "key_points": [
+    "The error handler will use that as the JSON error message, and set the status code to 404. [4]"
+   ],
+   "citations": [
+    {
+     "ref": 4,
+     "link": "https://flask.palletsprojects.com/en/stable/errorhandling/#returning-api-errors-as-json",
+     "breadcrumb": "Handling Application Errors > Returning API Errors as JSON",
+     "quote": "Using the same techniques as above and jsonify() we can return JSON responses to API errors.",
+     "ref_valid": true,
+     "quote_verified": true
+    }
+   ],
+   "confidence": "high",
+   "insufficient_context": false,
+   "grounding": {
+    "citations_total": 1,
+    "citations_ref_valid": 1,
+    "quotes_given": 1,
+    "quotes_verified": 1,
+    "answer_markers": [
+     4
+    ],
+    "answer_has_markers": true,
+    "markers_valid": true
+   },
+   "model": "ollama/gemma2:9b",
+   "retriever": "hybrid",
+   "timing_ms": {
+    "retrieval": 47.7,
+    "llm": 10233
+   },
+   "passages": [
+    {
+     "rank": 1,
+     "link": "https://flask.palletsprojects.com/en/stable/errorhandling/#generic-exception-handlers",
+     "breadcrumb": "Handling Application Errors > Error Handlers > Generic Exception Handlers",
+     "kind": "prose",
+     "text": "It is possible to register error handlers for very generic base classes\nsuch as HTTPException or even Exception . However, be aware that\nthese will catch more than you might expect.\n\nFor example, an error handler for HTTPException might be useful for turning\nthe default HTML errors pages into JSON. However, this\nhandler will trigger for things you don’t cause directly, such as 404\nand 405 errors during routing. Be sure to craft your handler carefully\nso you don’t lose information about the HTTP error.\n\n```\nfrom flask import json\nfrom werkzeug.exceptions import HTTPException\n\n@app.errorhandler(HTTPException)\ndef handle_exception(e):\n    \"\"\"Return JSON instead of HTML for HTTP errors.\"\"\"\n    # start with the correct headers and status code from the error\n    response = e.get_response()\n    # replace the body with JSON\n    response.data = json.dumps({\n        \"code\": e.code,\n        \"name\": e.name,\n        \"description\": e.description,\n    })\n    response.content_type = \"application/json\"\n    return response\n```\n\nAn error handler for Exception might seem useful for changing how\nall errors, even unhandled ones, are presented to the user. However,\nthis is similar to doing except Exception: in Python, it will\ncapture all otherwise unhandled errors, including all HTTP status\ncodes.\n\nIn most cases it will be safer to register handlers for more\nspecific exceptions. Since HTTPException instances are valid WSGI\nresponses, you could also pass them through directly."
+    },
+    {
+     "rank": 2,
+     "link": "https://flask.palletsprojects.com/en/stable/patterns/javascript/#replacing-content",
+     "breadcrumb": "JavaScript, fetch, and JSON > JavaScript, fetch , and JSON > Replacing Content",
+     "kind": "prose",
+     "text": "A response might be new HTML, either a new section of the page to add or\nreplace, or an entirely new page. In general, if you’re returning the\nentire page, it would be better to handle that with a redirect as shown\nin the previous section. The following example shows how to replace a\n <div> with the HTML returned by a request.\n\n```\n<div id=\"geology-fact\">\n    {{ include \"geology_fact.html\" }}\n</div>\n<script>\n    const geology_url = {{ url_for(\"geology_fact\")|tojson }}\n    const geology_div = getElementById(\"geology-fact\")\n    fetch(geology_url)\n        .then(response => response.text)\n        .then(text => geology_div.innerHTML = text)\n</script>\n```"
+    },
+    {
+     "rank": 3,
+     "link": "https://flask.palletsprojects.com/en/stable/patterns/javascript/#following-redirects",
+     "breadcrumb": "JavaScript, fetch, and JSON > JavaScript, fetch , and JSON > Following Redirects",
+     "kind": "prose",
+     "text": "A response might be a redirect, for example if you logged in with\nJavaScript instead of a traditional HTML form, and your view returned\na redirect instead of JSON. JavaScript requests do follow redirects, but\nthey don’t change the page. If you want to make the page change you can\ninspect the response and apply the redirect manually.\n\n```\nfetch(\"/login\", {\"body\": ...}).then(\n    response => {\n        if (response.redirected) {\n            window.location = response.url\n        } else {\n            showLoginError()\n        }\n    }\n)\n```"
+    },
+    {
+     "rank": 4,
+     "link": "https://flask.palletsprojects.com/en/stable/errorhandling/#returning-api-errors-as-json",
+     "breadcrumb": "Handling Application Errors > Returning API Errors as JSON",
+     "kind": "prose",
+     "text": "When building APIs in Flask, some developers realise that the built-in\nexceptions are not expressive enough for APIs and that the content type of\n text/html they are emitting is not very useful for API consumers.\n\nUsing the same techniques as above and jsonify() we can return JSON\nresponses to API errors. abort() is called\nwith a description parameter. The error handler will\nuse that as the JSON error message, and set the status code to 404.\n\n```\nfrom flask import abort, jsonify\n\n@app.errorhandler(404)\ndef resource_not_found(e):\n    return jsonify(error=str(e)), 404\n\n@app.route(\"/cheese\")\ndef get_one_cheese():\n    resource = get_resource()\n\n    if resource is None:\n        abort(404, description=\"Resource not found\")\n\n    return jsonify(resource)\n```\n\nWe can also create custom exception classes. For instance, we can\nintroduce a new custom exception for an API that can take a proper human readable message,\na status code for the error and some optional payload to give more context\nfor the error.\n\nThis is a simple example:"
+    },
+    {
+     "rank": 5,
+     "link": "https://flask.palletsprojects.com/en/stable/errorhandling/#debugging",
+     "breadcrumb": "Handling Application Errors > Debugging",
+     "kind": "prose",
+     "text": "See Debugging Application Errors for information about how to debug errors in\ndevelopment and production."
+    }
+   ]
+  },
+  {
+   "question": "Where should I store a database connection so it is reused during one request?",
+   "answer": "You should store a database connection in `g` [1][3][4][5].",
+   "key_points": [
+    "The g object is unique for each request and used to store data that might be accessed by multiple functions during the request. [1]",
+    "It is created at some point when handling a request, and closed before the response is sent. [1]",
+    "g is a special object that is unique for each request. It is used to store data that might be accessed by multiple functions during the request. The connection is stored and reused instead of creating a new connection if get_db is called a second time in the same request. [1]",
+    "The tutorial stores a connection to a SQLite database as g.db . Extensions can also use this, with some care. [4]"
+   ],
+   "citations": [
+    {
+     "ref": 1,
+     "link": "https://flask.palletsprojects.com/en/stable/tutorial/database/#connect-to-the-database",
+     "breadcrumb": "Define and Access the Database > Connect to the Database",
+     "quote": "In web applications this connection is typically tied to the request. It is created at some point when handling a request, and closed before the response is sent.",
+     "ref_valid": true,
+     "quote_verified": true
+    },
+    {
+     "ref": 3,
+     "link": "https://flask.palletsprojects.com/en/stable/tutorial/database/#connect-to-the-database",
+     "breadcrumb": "Define and Access the Database > Connect to the Database",
+     "quote": "g is a special object that is unique for each request. It is used to store data that might be accessed by multiple functions during the request. The connection is stored and reused instead of creating a new connection if get_db is called a second time in the same request.",
+     "ref_valid": true,
+     "quote_verified": false
+    },
+    {
+     "ref": 4,
+     "link": "https://flask.palletsprojects.com/en/stable/extensiondev/#data-during-a-request",
+     "breadcrumb": "Flask Extension Development > Data During a Request",
+     "quote": "g is a special object that is unique for each request. It is used to store data that might be accessed by multiple functions during the request. The connection is stored and reused instead of creating a new connection if get_db is called a second time in the same request.",
+     "ref_valid": true,
+     "quote_verified": false
+    },
+    {
+     "ref": 5,
+     "link": "https://flask.palletsprojects.com/en/stable/patterns/sqlite3/#using-sqlite-3-with-flask",
+     "breadcrumb": "Using SQLite 3 with Flask",
+     "quote": "The tutorial stores a connection to a SQLite database as g.db . Extensions can also use this, with some care.",
+     "ref_valid": true,
+     "quote_verified": false
+    }
+   ],
+   "confidence": "high",
+   "insufficient_context": false,
+   "grounding": {
+    "citations_total": 4,
+    "citations_ref_valid": 4,
+    "quotes_given": 4,
+    "quotes_verified": 1,
+    "answer_markers": [
+     1,
+     3,
+     4,
+     5
+    ],
+    "answer_has_markers": true,
+    "markers_valid": true
+   },
+   "model": "ollama/gemma2:9b",
+   "retriever": "hybrid",
+   "timing_ms": {
+    "retrieval": 36.3,
+    "llm": 25382
+   },
+   "passages": [
+    {
+     "rank": 1,
+     "link": "https://flask.palletsprojects.com/en/stable/tutorial/database/#connect-to-the-database",
+     "breadcrumb": "Define and Access the Database > Connect to the Database",
+     "kind": "prose",
+     "text": "The first thing to do when working with a SQLite database (and most\nother Python database libraries) is to create a connection to it. Any\nqueries and operations are performed using the connection, which is\nclosed after the work is finished.\n\nIn web applications this connection is typically tied to the request. It\nis created at some point when handling a request, and closed before the\nresponse is sent.\n\nflaskr/db.py\n```\nimport sqlite3\nfrom datetime import datetime\n\nimport click\nfrom flask import current_app, g\n\n\ndef get_db():\n    if 'db' not in g:\n        g.db = sqlite3.connect(\n            current_app.config['DATABASE'],\n            detect_types=sqlite3.PARSE_DECLTYPES\n        )\n        g.db.row_factory = sqlite3.Row\n\n    return g.db\n\n\ndef close_db(e=None):\n    db = g.pop('db', None)\n\n    if db is not None:\n        db.close()\n```\n\ng is a special object that is unique for each request. It is\nused to store data that might be accessed by multiple functions during\nthe request. The connection is stored and reused instead of creating a\nnew connection if get_db is called a second time in the same\nrequest.\n\ncurrent_app is another special object that points to the Flask\napplication handling the request. Since you used an application factory,\nthere is no application object when writing the rest of your code.\n get_db will be called when the application has been created and is\nhandling a request, so current_app can be used."
+    },
+    {
+     "rank": 2,
+     "link": "https://flask.palletsprojects.com/en/stable/patterns/#patterns-for-flask",
+     "breadcrumb": "Patterns for Flask",
+     "kind": "prose",
+     "text": "Certain features and interactions are common enough that you will find\nthem in most web applications. For example, many applications use a\nrelational database and user authentication. They will open a database\nconnection at the beginning of the request and get the information for\nthe logged in user. At the end of the request, the database connection\nis closed.\n\nThese types of patterns may be a bit outside the scope of Flask itself,\nbut Flask makes it easy to implement them. Some common patterns are\ncollected in the following pages."
+    },
+    {
+     "rank": 3,
+     "link": "https://flask.palletsprojects.com/en/stable/tutorial/database/#connect-to-the-database",
+     "breadcrumb": "Define and Access the Database > Connect to the Database",
+     "kind": "prose",
+     "text": "sqlite3.connect() establishes a connection to the file pointed at\nby the DATABASE configuration key. This file doesn’t have to exist\nyet, and won’t until you initialize the database later.\n\nsqlite3.Row tells the connection to return rows that behave\nlike dicts. This allows accessing the columns by name.\n\nclose_db checks if a connection was created by checking if g.db \nwas set. If the connection exists, it is closed. Further down you will\ntell your application about the close_db function in the application\nfactory so that it is called after each request."
+    },
+    {
+     "rank": 4,
+     "link": "https://flask.palletsprojects.com/en/stable/extensiondev/#data-during-a-request",
+     "breadcrumb": "Flask Extension Development > Data During a Request",
+     "kind": "prose",
+     "text": "When writing a Flask application, the g object is used to\nstore information during a request. For example the\n tutorial stores a connection to a SQLite\ndatabase as g.db . Extensions can also use this, with some care.\nSince g is a single global namespace, extensions must use unique\nnames that won’t collide with user data. For example, use the extension\nname as a prefix, or as a namespace.\n\n```\n# an internal prefix with the extension name\ng._hello_user_id = 2\n\n# or an internal prefix as a namespace\nfrom types import SimpleNamespace\ng._hello = SimpleNamespace()\ng._hello.user_id = 2\n```\n\nThe data in g lasts for an application context. An application\ncontext is active when a request context is, or when a CLI command is\nrun. If you’re storing something that should be closed, use\n teardown_appcontext() to ensure that it gets closed\nwhen the application context ends. If it should only be valid during a\nrequest, or would not be used in the CLI outside a request, use\n teardown_request() ."
+    },
+    {
+     "rank": 5,
+     "link": "https://flask.palletsprojects.com/en/stable/patterns/sqlite3/#using-sqlite-3-with-flask",
+     "breadcrumb": "Using SQLite 3 with Flask",
+     "kind": "prose",
+     "text": "In Flask you can easily implement the opening of database connections on\ndemand and closing them when the context dies (usually at the end of the\nrequest).\n\nHere is a simple example of how you can use SQLite 3 with Flask:\n\n```\nimport sqlite3\nfrom flask import g\n\nDATABASE = '/path/to/database.db'\n\ndef get_db():\n    db = getattr(g, '_database', None)\n    if db is None:\n        db = g._database = sqlite3.connect(DATABASE)\n    return db\n\n@app.teardown_appcontext\ndef close_connection(exception):\n    db = getattr(g, '_database', None)\n    if db is not None:\n        db.close()\n```\n\nNow, to use the database, the application must either have an active\napplication context (which is always true if there is a request in flight)\nor create an application context itself. At that point the get_db \nfunction can be used to get the current database connection. Whenever the\ncontext is destroyed the database connection will be terminated.\n\nExample:\n\n```\n@app.route('/')\ndef index():\n    cur = get_db().cursor()\n    ...\n```\n\nNote \n Please keep in mind that the teardown request and appcontext functions\nare always executed, even if a before-request handler failed or was\nnever executed. Because of this we have to make sure here that the\ndatabase is there before we close it."
+    }
+   ]
+  },
+  {
+   "question": "Does Flask include CSRF protection out of the box?",
+   "answer": "Insufficient context",
+   "key_points": [],
+   "citations": [],
+   "confidence": "low",
+   "insufficient_context": true,
+   "grounding": {
+    "citations_total": 0,
+    "citations_ref_valid": 0,
+    "quotes_given": 0,
+    "quotes_verified": 0,
+    "answer_markers": [],
+    "answer_has_markers": false,
+    "markers_valid": false
+   },
+   "model": "ollama/gemma2:9b",
+   "retriever": "hybrid",
+   "timing_ms": {
+    "retrieval": 34.3,
+    "llm": 5543
+   },
+   "passages": [
+    {
+     "rank": 1,
+     "link": "https://flask.palletsprojects.com/en/stable/design/#what-does-micro-mean",
+     "breadcrumb": "Design Decisions in Flask > What does “micro” mean?",
+     "kind": "prose",
+     "text": "“Micro” does not mean that your whole web application has to fit into a single\nPython file (although it certainly can), nor does it mean that Flask is lacking\nin functionality. The “micro” in microframework means Flask aims to keep the\ncore simple but extensible. Flask won’t make many decisions for you, such as\nwhat database to use. Those decisions that it does make, such as what\ntemplating engine to use, are easy to change. Everything else is up to you, so\nthat Flask can be everything you need and nothing you don’t.\n\nBy default, Flask does not include a database abstraction layer, form\nvalidation or anything else where different libraries already exist that can\nhandle that. Instead, Flask supports extensions to add such functionality to\nyour application as if it was implemented in Flask itself. Numerous extensions\nprovide database integration, form validation, upload handling, various open\nauthentication technologies, and more. Flask may be “micro”, but it’s ready for\nproduction use on a variety of needs."
+    },
+    {
+     "rank": 2,
+     "link": "https://flask.palletsprojects.com/en/stable/lifecycle/#application-setup",
+     "breadcrumb": "Application Structure and Lifecycle > Application Setup",
+     "kind": "prose",
+     "text": "However, it is not possible for Flask to detect all cases of out-of-order setup. In\ngeneral, don’t do anything to modify the Flask app object and Blueprint objects\nfrom within view functions that run during requests. This includes:\n\n- Adding routes, view functions, and other request handlers with @app.route ,\n @app.errorhandler , @app.before_request , etc.\n- Registering blueprints.\n- Loading configuration with app.config .\n- Setting up the Jinja template environment with app.jinja_env .\n- Setting a session interface, instead of the default itsdangerous cookie.\n- Setting a JSON provider with app.json , instead of the default provider.\n- Creating and initializing Flask extensions."
+    },
+    {
+     "rank": 3,
+     "link": "https://flask.palletsprojects.com/en/stable/web-security/#cross-site-scripting-xss",
+     "breadcrumb": "Security Considerations > Cross-Site Scripting (XSS)",
+     "kind": "prose",
+     "text": "```\nonmouseover=alert(document.cookie)\n```\n\nWhen the user would then move with the mouse over the input, the cookie\nwould be presented to the user in an alert window. But instead of showing\nthe cookie to the user, a good attacker might also execute any other\nJavaScript code. In combination with CSS injections the attacker might\neven make the element fill out the entire page so that the user would\njust have to have the mouse anywhere on the page to trigger the attack.\n\nThere is one class of XSS issues that Jinja’s escaping does not protect\nagainst. The a tag’s href attribute can contain a javascript: URI,\nwhich the browser will execute when clicked if not secured properly.\n\n```\n<a href=\"{{ value }}\">click here</a>\n<a href=\"javascript:alert('unsafe');\">click here</a>\n```\n\nTo prevent this, you’ll need to set the Content Security Policy (CSP) response header."
+    },
+    {
+     "rank": 4,
+     "link": "https://flask.palletsprojects.com/en/stable/web-security/#set-cookie-options",
+     "breadcrumb": "Security Considerations > Security Headers > Set-Cookie options",
+     "kind": "prose",
+     "text": "These options can be added to a Set-Cookie header to improve their\nsecurity. Flask has configuration options to set these on the session cookie.\nThey can be set on other cookies too.\n\n- Secure limits cookies to HTTPS traffic only.\n- HttpOnly protects the contents of cookies from being read with\nJavaScript.\n- SameSite restricts how cookies are sent with requests from\nexternal sites. Can be set to 'Lax' (recommended) or 'Strict' .\n Lax prevents sending cookies with CSRF-prone requests from\nexternal sites, such as submitting a form. Strict prevents sending\ncookies with all external requests, including following regular links.\n\n```\napp.config.update(\n    SESSION_COOKIE_SECURE=True,\n    SESSION_COOKIE_HTTPONLY=True,\n    SESSION_COOKIE_SAMESITE='Lax',\n)\n\nresponse.set_cookie('username', 'flask', secure=True, httponly=True, samesite='Lax')\n```\n\nSpecifying Expires or Max-Age options, will remove the cookie after\nthe given time, or the current time plus the age, respectively. If neither\noption is set, the cookie will be removed when the browser is closed.\n\n```\n# cookie expires after 10 minutes\nresponse.set_cookie('snakes', '3', max_age=600)\n```\n\nFor the session cookie, if session.permanent \nis set, then PERMANENT_SESSION_LIFETIME is used to set the expiration.\nFlask’s default cookie implementation validates that the cryptographic\nsignature is not older than this value. Lowering this value may help mitigate\nreplay attacks, where intercepted cookies can be sent at a later time."
+    },
+    {
+     "rank": 5,
+     "link": "https://flask.palletsprojects.com/en/stable/deploying/gunicorn/#gunicorn",
+     "breadcrumb": "Gunicorn",
+     "kind": "prose",
+     "text": "Gunicorn is a pure Python WSGI server with simple configuration and\nmultiple worker implementations for performance tuning.\n\n- It tends to integrate easily with hosting platforms.\n- It does not support Windows (but does run on WSL).\n- It is easy to install as it does not require additional dependencies\nor compilation.\n- It has built-in async worker support using gevent.\n\nThis page outlines the basics of running Gunicorn. Be sure to read its\n documentation and use gunicorn --help to understand what features\nare available."
+    }
+   ]
+  },
+  {
+   "question": "How do I load configuration values from environment variables with a FLASK_ prefix?",
+   "answer": "Use the `from_prefixed_env()` function to load configuration values from environment variables starting with FLASK_. [2]  The default prefix is 'FLASK_' and can be changed using the `prefix` argument. [2]",
+   "key_points": [
+    "You can use the `from_prefixed_env()` function to load configuration values from environment variables.",
+    "The default prefix for this function is 'FLASK_' but you can change it with the `prefix` argument."
+   ],
+   "citations": [
+    {
+     "ref": 2,
+     "link": "https://flask.palletsprojects.com/en/stable/api/#flask.Config.from_prefixed_env",
+     "breadcrumb": "API > Configuration > Config > from_prefixed_env",
+     "quote": "Load any environment variables that start with FLASK_ , dropping the prefix from the env key for the config key. Values are passed through a loading function to attempt to convert them to more specific types than strings.",
+     "ref_valid": true,
+     "quote_verified": true
+    }
+   ],
+   "confidence": "high",
+   "insufficient_context": false,
+   "grounding": {
+    "citations_total": 1,
+    "citations_ref_valid": 1,
+    "quotes_given": 1,
+    "quotes_verified": 1,
+    "answer_markers": [
+     2
+    ],
+    "answer_has_markers": true,
+    "markers_valid": true
+   },
+   "model": "ollama/gemma2:9b",
+   "retriever": "hybrid",
+   "timing_ms": {
+    "retrieval": 21.5,
+    "llm": 14633
+   },
+   "passages": [
+    {
+     "rank": 1,
+     "link": "https://flask.palletsprojects.com/en/stable/config/#configuring-from-environment-variables",
+     "breadcrumb": "Configuration Handling > Configuring from Environment Variables",
+     "kind": "prose",
+     "text": "In addition to pointing to configuration files using environment\nvariables, you may find it useful (or necessary) to control your\nconfiguration values directly from the environment. Flask can be\ninstructed to load all environment variables starting with a specific\nprefix into the config using from_prefixed_env() .\n\nEnvironment variables can be set in the shell before starting the\nserver:\n\n```\n$ export FLASK_SECRET_KEY=\"5f352379324c22463451387a0aec5d2f\"\n$ export FLASK_MAIL_ENABLED=false\n$ flask run\n * Running on http://127.0.0.1:5000/\n```\n\nThe variables can then be loaded and accessed via the config with a key\nequal to the environment variable name without the prefix i.e.\n\n```\napp.config.from_prefixed_env()\napp.config[\"SECRET_KEY\"]  # Is \"5f352379324c22463451387a0aec5d2f\"\n```\n\nThe prefix is FLASK_ by default. This is configurable via the\n prefix argument of from_prefixed_env() .\n\nValues will be parsed to attempt to convert them to a more specific type\nthan strings. By default json.loads() is used, so any valid JSON\nvalue is possible, including lists and dicts. This is configurable via\nthe loads argument of from_prefixed_env() .\n\nWhen adding a boolean value with the default JSON parsing, only “true”\nand “false”, lowercase, are valid values. Keep in mind that any\nnon-empty string is considered True by Python."
+    },
+    {
+     "rank": 2,
+     "link": "https://flask.palletsprojects.com/en/stable/api/#flask.Config.from_prefixed_env",
+     "breadcrumb": "API > Configuration > Config > from_prefixed_env",
+     "kind": "api",
+     "text": "from_prefixed_env ( prefix = 'FLASK' , * , loads = json.loads )\n\nLoad any environment variables that start with FLASK_ ,\ndropping the prefix from the env key for the config key. Values\nare passed through a loading function to attempt to convert them\nto more specific types than strings.\n\nKeys are loaded in sorted() order.\n\nThe default loading function attempts to parse values as any\nvalid JSON type, including dicts and lists.\n\nSpecific items in nested dicts can be set by separating the\nkeys with double underscores ( __ ). If an intermediate key\ndoesn’t exist, it will be initialized to an empty dict.\n\nParameters : \n \n prefix ( str ) – Load env vars that start with this prefix,\nseparated with an underscore ( _ ). \n loads ( Callable [ [ str ] , Any ] ) – Pass each string value to this function and use\nthe returned value as the config value. If any error is\nraised it is ignored and the value remains a string. The\ndefault is json.loads() . \n \n \n Return type : \n bool\n\nChangelog \n Added in version 2.1."
+    },
+    {
+     "rank": 3,
+     "link": "https://flask.palletsprojects.com/en/stable/config/#configuring-from-python-files",
+     "breadcrumb": "Configuration Handling > Configuring from Python Files",
+     "kind": "prose",
+     "text": "Configuration becomes more useful if you can store it in a separate file, ideally\nlocated outside the actual application package. You can deploy your application, then\nseparately configure it for the specific deployment.\n\nA common pattern is this:\n\n```\napp = Flask(__name__)\napp.config.from_object('yourapplication.default_settings')\napp.config.from_envvar('YOURAPPLICATION_SETTINGS')\n```\n\nThis first loads the configuration from the\n yourapplication.default_settings module and then overrides the values\nwith the contents of the file the YOURAPPLICATION_SETTINGS \nenvironment variable points to. This environment variable can be set\nin the shell before starting the server:\n\n```\n$ export YOURAPPLICATION_SETTINGS=/path/to/settings.cfg\n$ flask run\n * Running on http://127.0.0.1:5000/\n```\n\nThe configuration files themselves are actual Python files. Only values\nin uppercase are actually stored in the config object later on. So make\nsure to use uppercase letters for your config keys.\n\nHere is an example of a configuration file:\n\n```\n# Example configuration\nSECRET_KEY = '192b9bdd22ab9ed4d12e236c78afcb9a393ec15f71bbf5dc987d54727823bcbf'\n```\n\nMake sure to load the configuration very early on, so that extensions have\nthe ability to access the configuration when starting up. There are other\nmethods on the config object as well to load from individual files. For a\ncomplete reference, read the Config object’s\ndocumentation."
+    },
+    {
+     "rank": 4,
+     "link": "https://flask.palletsprojects.com/en/stable/changes/#version-2-1-0",
+     "breadcrumb": "Changes > Version 2.1.0",
+     "kind": "prose",
+     "text": "- When using lazy loading (the default with the debugger), the Click\ncontext from the flask run command remains available in the\nloader thread. #4460\n- Deleting the session cookie uses the httponly flag.\n #4485\n- Relax typing for errorhandler to allow the user to use more\nprecise types and decorate the same function multiple times.\n #4095, 4295, 4297\n- Fix typing for __exit__ methods for better compatibility with\n ExitStack . #4474\n- From Werkzeug, for redirect responses the Location header URL\nwill remain relative, and exclude the scheme and domain, by default.\n #4496\n- Add Config.from_prefixed_env() to load config values from\nenvironment variables that start with FLASK_ or another prefix.\nThis parses values as JSON by default, and allows setting keys in\nnested dicts. #4479"
+    },
+    {
+     "rank": 5,
+     "link": "https://flask.palletsprojects.com/en/stable/config/#configuration-handling",
+     "breadcrumb": "Configuration Handling",
+     "kind": "prose",
+     "text": "Applications need some kind of configuration. There are different settings\nyou might want to change depending on the application environment like\ntoggling the debug mode, setting the secret key, and other such\nenvironment-specific things.\n\nThe way Flask is designed usually requires the configuration to be\navailable when the application starts up. You can hard code the\nconfiguration in the code, which for many small applications is not\nactually that bad, but there are better ways.\n\nIndependent of how you load your config, there is a config object\navailable which holds the loaded configuration values:\nThe config attribute of the Flask \nobject. This is the place where Flask itself puts certain configuration\nvalues and also where extensions can put their configuration values. But\nthis is also where you can have your own configuration."
+    }
+   ]
+  },
+  {
+   "question": "How do I run Celery background tasks with Flask?",
+   "answer": "You can use Celery to run background tasks in Flask by configuring it through Flask's config and letting tasks access the Flask application [3].  Celery uses a similar structure to Flask, with a Celery app object that has configuration and registers tasks. You can configure Celery using the `CELERY` key in your Flask configuration [3] .",
+   "key_points": [
+    "You can use Celery to run background tasks in Flask by configuring it through Flask's config and letting tasks access the Flask application [3].  Celery uses a similar structure to Flask, with a Celery app object that has configuration and registers tasks. You can configure Celery using the `CELERY` key in your Flask configuration [3] ."
+   ],
+   "citations": [
+    {
+     "ref": 3,
+     "link": "https://flask.palletsprojects.com/en/stable/patterns/celery/#integrate-celery-with-flask",
+     "breadcrumb": "Background Tasks with Celery > Integrate Celery with Flask",
+     "quote": "Celery uses similar ideas to Flask, with a Celery app object that has configuration and registers tasks. While creating a Flask app, use the following code to create and configure a Celery app as well.",
+     "ref_valid": true,
+     "quote_verified": true
+    },
+    {
+     "ref": 3,
+     "link": "https://flask.palletsprojects.com/en/stable/patterns/celery/#integrate-celery-with-flask",
+     "breadcrumb": "Background Tasks with Celery > Integrate Celery with Flask",
+     "quote": "Celery configuration is taken from the CELERY key in the Flask configuration. The Celery app is set as the default, so that it is seen during each request. The Task subclass automatically runs task functions with a Flask app context active, so that services like your database connections are available.",
+     "ref_valid": true,
+     "quote_verified": true
+    }
+   ],
+   "confidence": "high",
+   "insufficient_context": false,
+   "grounding": {
+    "citations_total": 2,
+    "citations_ref_valid": 2,
+    "quotes_given": 2,
+    "quotes_verified": 2,
+    "answer_markers": [
+     3
+    ],
+    "answer_has_markers": true,
+    "markers_valid": true
+   },
+   "model": "ollama/gemma2:9b",
+   "retriever": "hybrid",
+   "timing_ms": {
+    "retrieval": 53.7,
+    "llm": 17837
+   },
+   "passages": [
+    {
+     "rank": 1,
+     "link": "https://flask.palletsprojects.com/en/stable/patterns/celery/#background-tasks-with-celery",
+     "breadcrumb": "Background Tasks with Celery",
+     "kind": "prose",
+     "text": "If your application has a long running task, such as processing some uploaded data or\nsending email, you don’t want to wait for it to finish during a request. Instead, use a\ntask queue to send the necessary data to another process that will run the task in the\nbackground while the request returns immediately.\n\nCelery is a powerful task queue that can be used for simple background tasks as well\nas complex multi-stage programs and schedules. This guide will show you how to configure\nCelery using Flask. Read Celery’s First Steps with Celery guide to learn how to use\nCelery itself.\n\nThe Flask repository contains an example \nbased on the information on this page, which also shows how to use JavaScript to submit\ntasks and poll for progress and results."
+    },
+    {
+     "rank": 2,
+     "link": "https://flask.palletsprojects.com/en/stable/async-await/#background-tasks",
+     "breadcrumb": "Using async and await > Background tasks",
+     "kind": "prose",
+     "text": "Async functions will run in an event loop until they complete, at\nwhich stage the event loop will stop. This means any additional\nspawned tasks that haven’t completed when the async function completes\nwill be cancelled. Therefore you cannot spawn background tasks, for\nexample via asyncio.create_task .\n\nIf you wish to use background tasks it is best to use a task queue to\ntrigger background work, rather than spawn tasks in a view\nfunction. With that in mind you can spawn asyncio tasks by serving\nFlask with an ASGI server and utilising the asgiref WsgiToAsgi adapter\nas described in ASGI . This works as the adapter creates\nan event loop that runs continually."
+    },
+    {
+     "rank": 3,
+     "link": "https://flask.palletsprojects.com/en/stable/patterns/celery/#integrate-celery-with-flask",
+     "breadcrumb": "Background Tasks with Celery > Integrate Celery with Flask",
+     "kind": "prose",
+     "text": "You can use Celery without any integration with Flask, but it’s convenient to configure\nit through Flask’s config, and to let tasks access the Flask application.\n\nCelery uses similar ideas to Flask, with a Celery app object that has configuration\nand registers tasks. While creating a Flask app, use the following code to create and\nconfigure a Celery app as well.\n\n```\nfrom celery import Celery, Task\n\ndef celery_init_app(app: Flask) -> Celery:\n    class FlaskTask(Task):\n        def __call__(self, *args: object, **kwargs: object) -> object:\n            with app.app_context():\n                return self.run(*args, **kwargs)\n\n    celery_app = Celery(app.name, task_cls=FlaskTask)\n    celery_app.config_from_object(app.config[\"CELERY\"])\n    celery_app.set_default()\n    app.extensions[\"celery\"] = celery_app\n    return celery_app\n```\n\nThis creates and returns a Celery app object. Celery configuration is taken from\nthe CELERY key in the Flask configuration. The Celery app is set as the default, so\nthat it is seen during each request. The Task subclass automatically runs task\nfunctions with a Flask app context active, so that services like your database\nconnections are available.\n\nHere’s a basic example.py that configures Celery to use Redis for communication. We\nenable a result backend, but ignore results by default. This allows us to store results\nonly for tasks where we care about the result."
+    },
+    {
+     "rank": 4,
+     "link": "https://flask.palletsprojects.com/en/stable/patterns/celery/#calling-tasks",
+     "breadcrumb": "Background Tasks with Celery > Calling Tasks",
+     "kind": "prose",
+     "text": "The decorated function becomes a task object with methods to call it in the background.\nThe simplest way is to use the delay(*args, **kwargs) method. See Celery’s docs for\nmore methods.\n\nA Celery worker must be running to run the task. Starting a worker is shown in the\nprevious sections.\n\n```\nfrom flask import request\n\n@app.post(\"/add\")\ndef start_add() -> dict[str, object]:\n    a = request.form.get(\"a\", type=int)\n    b = request.form.get(\"b\", type=int)\n    result = add_together.delay(a, b)\n    return {\"result_id\": result.id}\n```\n\nThe route doesn’t get the task’s result immediately. That would defeat the purpose by\nblocking the response. Instead, we return the running task’s result id, which we can use\nlater to get the result."
+    },
+    {
+     "rank": 5,
+     "link": "https://flask.palletsprojects.com/en/stable/patterns/celery/#defining-tasks",
+     "breadcrumb": "Background Tasks with Celery > Defining Tasks",
+     "kind": "prose",
+     "text": "Using @celery_app.task to decorate task functions requires access to the\n celery_app object, which won’t be available when using the factory pattern. It also\nmeans that the decorated tasks are tied to the specific Flask and Celery app instances,\nwhich could be an issue during testing if you change configuration for a test.\n\nInstead, use Celery’s @shared_task decorator. This creates task objects that will\naccess whatever the “current app” is, which is a similar concept to Flask’s blueprints\nand app context. This is why we called celery_app.set_default() above.\n\nHere’s an example task that adds two numbers together and returns the result.\n\n```\nfrom celery import shared_task\n\n@shared_task(ignore_result=False)\ndef add_together(a: int, b: int) -> int:\n    return a + b\n```\n\nEarlier, we configured Celery to ignore task results by default. Since we want to know\nthe return value of this task, we set ignore_result=False . On the other hand, a task\nthat didn’t need a result, such as sending an email, wouldn’t set this."
+    }
+   ]
+  },
+  {
+   "question": "How do I configure middleware ordering in Django settings?",
+   "answer": "Insufficient context",
+   "key_points": [],
+   "citations": [],
+   "confidence": "low",
+   "insufficient_context": true,
+   "grounding": {
+    "citations_total": 0,
+    "citations_ref_valid": 0,
+    "quotes_given": 0,
+    "quotes_verified": 0,
+    "answer_markers": [],
+    "answer_has_markers": false,
+    "markers_valid": false
+   },
+   "model": "ollama/gemma2:9b",
+   "retriever": "hybrid",
+   "timing_ms": {
+    "retrieval": 44.7,
+    "llm": 5008
+   },
+   "passages": [
+    {
+     "rank": 1,
+     "link": "https://flask.palletsprojects.com/en/stable/quickstart/#hooking-in-wsgi-middleware",
+     "breadcrumb": "Quickstart > Hooking in WSGI Middleware",
+     "kind": "prose",
+     "text": "To add WSGI middleware to your Flask application, wrap the application’s\n wsgi_app attribute. For example, to apply Werkzeug’s\n ProxyFix middleware for running\nbehind Nginx:\n\n```\nfrom werkzeug.middleware.proxy_fix import ProxyFix\napp.wsgi_app = ProxyFix(app.wsgi_app)\n```\n\nWrapping app.wsgi_app instead of app means that app still\npoints at your Flask application, not at the middleware, so you can\ncontinue to use and configure app directly."
+    },
+    {
+     "rank": 2,
+     "link": "https://flask.palletsprojects.com/en/stable/deploying/proxy_fix/#tell-flask-it-is-behind-a-proxy",
+     "breadcrumb": "Tell Flask it is Behind a Proxy",
+     "kind": "prose",
+     "text": "When using a reverse proxy, or many Python hosting platforms, the proxy\nwill intercept and forward all external requests to the local WSGI\nserver.\n\nFrom the WSGI server and Flask application’s perspectives, requests are\nnow coming from the HTTP server to the local address, rather than from\nthe remote address to the external server address.\n\nHTTP servers should set X-Forwarded- headers to pass on the real\nvalues to the application. The application can then be told to trust and\nuse those values by wrapping it with the\n X-Forwarded-For Proxy Fix middleware provided by Werkzeug.\n\nThis middleware should only be used if the application is actually\nbehind a proxy, and should be configured with the number of proxies that\nare chained in front of it. Not all proxies set all the headers. Since\nincoming headers can be faked, you must set how many proxies are setting\neach header so the middleware knows what to trust.\n\n```\nfrom werkzeug.middleware.proxy_fix import ProxyFix\n\napp.wsgi_app = ProxyFix(\n    app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1\n)\n```\n\nRemember, only apply this middleware if you are behind a proxy, and set\nthe correct number of proxies that set each header. It can be a security\nissue if you get this configuration wrong."
+    },
+    {
+     "rank": 3,
+     "link": "https://flask.palletsprojects.com/en/stable/lifecycle/#middleware",
+     "breadcrumb": "Application Structure and Lifecycle > Serving the Application > Middleware",
+     "kind": "prose",
+     "text": "The WSGI application above is a callable that behaves in a certain way. Middleware\nis a WSGI application that wraps another WSGI application. It’s a similar concept to\nPython decorators. The outermost middleware will be called by the server. It can modify\nthe data passed to it, then call the WSGI application (or further middleware) that it\nwraps, and so on. And it can take the return value of that call and modify it further.\n\nFrom the WSGI server’s perspective, there is one WSGI application, the one it calls\ndirectly. Typically, Flask is the “real” application at the end of the chain of\nmiddleware. But even Flask can call further WSGI applications, although that’s an\nadvanced, uncommon use case.\n\nA common middleware you’ll see used with Flask is Werkzeug’s\n ProxyFix , which modifies the request to look\nlike it came directly from a client even if it passed through HTTP proxies on the way.\nThere are other middleware that can handle serving static files, authentication, etc."
+    },
+    {
+     "rank": 4,
+     "link": "https://flask.palletsprojects.com/en/stable/lifecycle/#how-a-request-is-handled",
+     "breadcrumb": "Application Structure and Lifecycle > How a Request is Handled",
+     "kind": "prose",
+     "text": "For us, the interesting part of the steps above is when Flask gets called by the WSGI\nserver (or middleware). At that point, it will do quite a lot to handle the request and\ngenerate the response. At the most basic, it will match the URL to a view function, call\nthe view function, and pass the return value back to the server. But there are many more\nparts that you can use to customize its behavior."
+    },
+    {
+     "rank": 5,
+     "link": "https://flask.palletsprojects.com/en/stable/config/#configuration-handling",
+     "breadcrumb": "Configuration Handling",
+     "kind": "prose",
+     "text": "Applications need some kind of configuration. There are different settings\nyou might want to change depending on the application environment like\ntoggling the debug mode, setting the secret key, and other such\nenvironment-specific things.\n\nThe way Flask is designed usually requires the configuration to be\navailable when the application starts up. You can hard code the\nconfiguration in the code, which for many small applications is not\nactually that bad, but there are better ways.\n\nIndependent of how you load your config, there is a config object\navailable which holds the loaded configuration values:\nThe config attribute of the Flask \nobject. This is the place where Flask itself puts certain configuration\nvalues and also where extensions can put their configuration values. But\nthis is also where you can have your own configuration."
+    }
+   ]
+  }
+ ]
+}
