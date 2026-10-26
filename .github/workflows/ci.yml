@@ -10,13 +10,18 @@ permissions:
 
 jobs:
   checks:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64, ci-linux]
+    # Fork PRs never run on our self-hosted machines (public repo).
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     strategy:
       fail-fast: false
       matrix:
         python-version: ["3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
+      - name: No job in any workflow can run on a GitHub-hosted runner
+        working-directory: ${{ github.workspace }}
+        run: python3 .github/scripts/check_no_hosted_runners.py --self-test && python3 .github/scripts/check_no_hosted_runners.py
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
@@ -31,7 +36,9 @@ jobs:
       - name: Tests (offline; network access fails the test)
         run: pytest
   docker:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64, ci-linux]
+    # Fork PRs never run on our self-hosted machines (public repo).
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - uses: actions/checkout@v4
       - name: Build image
